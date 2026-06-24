@@ -1,0 +1,17 @@
+scene,target_dur,render_dur,delta,path
+S01,25.728,25.799678,+0.071678,media/videos/scene_S01_cold_open/480p15/S01_ColdOpen.mp4
+S02,29.211,29.400000,+0.189000,media/videos/scene_S02_why_hard/480p15/S02_WhyHard.mp4
+S03,57.214,57.400000,+0.186000,media/videos/scene_S03_pre_deeplearning/480p15/S03_PreDL.mp4
+S04,35.852,35.882667,+0.030667,media/videos/scene_S04_idea/480p15/S04_Idea.mp4
+S05,36.548,36.600000,+0.052000,media/videos/scene_S05_gabor/480p15/S05_Gabor.mp4
+S06,28.561,28.733333,+0.172333,media/videos/scene_S06_jet/480p15/S06_Jet.mp4
+S07,36.548,36.666667,+0.118667,media/videos/scene_S07_similarity/480p15/S07_Similarity.mp4
+S08,23.638,23.733333,+0.095333,media/videos/scene_S08_image_graph/480p15/S08_ImageGraph.mp4
+S09,25.495,25.536000,+0.041000,media/videos/scene_S09_bunch_graph/480p15/S09_BunchGraph.mp4
+S10,26.146,26.266667,+0.120667,media/videos/scene_S10_graph_sim/480p15/S10_GraphSim.mp4
+S11,46.394,46.533333,+0.139333,media/videos/scene_S11_elastic/480p15/S11_Elastic.mp4
+S12,22.384,22.421333,+0.037333,media/videos/scene_S12_recognition/480p15/S12_Recognition.mp4
+S13,36.873,37.000000,+0.127000,media/videos/scene_S13_feret/480p15/S13_Feret.mp4
+S14,44.443,44.480000,+0.037000,media/videos/scene_S14_phase_speed/480p15/S14_PhaseSpeed.mp4
+S15,35.527,35.562667,+0.035667,media/videos/scene_S15_big_picture/480p15/S15_BigPicture.mp4
+S16,24.056,24.085333,+0.029333,media/videos/scene_S16_conclusion/480p15/S16_Conclusion.mp4

@@ -1,0 +1,318 @@
+{
+  "description": "16-scene EBGM release cut built from 1080p60 renders.",
+  "total_duration_seconds": 610.0,
+  "total_duration_timecode": "10:10",
+  "full_output": "media/release_cut_16_scenes/EBGM_release_16_scenes_full.mp4",
+  "full_output_duration_seconds": 610.0,
+  "cut_scenes": [
+    "07",
+    "08",
+    "19",
+    "25",
+    "26",
+    "30"
+  ],
+  "partial_scene_28_policy": "Only the opening 3 seconds are folded into S15.",
+  "scenes": [
+    {
+      "id": "S01",
+      "title": "Mo dau va bai toan",
+      "target_duration": 22.0,
+      "actual_duration": 22.0,
+      "output": "media/release_cut_16_scenes/S01_mo_dau_va_bai_toan.mp4",
+      "segments": [
+        {
+          "source_scene": "01",
+          "source_file": "media/videos/scene_01_title_opening/1080p60/Scene1_TitleOpening.mp4",
+          "start": 0,
+          "duration": 8.0
+        },
+        {
+          "source_scene": "02",
+          "source_file": "media/videos/scene_02_face_recognition/1080p60/Scene2_FaceRecognition.mp4",
+          "start": 0,
+          "duration": 14.0
+        }
+      ]
+    },
+    {
+      "id": "S02",
+      "title": "Vi sao nhan dang khuon mat kho",
+      "target_duration": 38.0,
+      "actual_duration": 38.0,
+      "output": "media/release_cut_16_scenes/S02_vi_sao_nhan_dang_khuon_mat_kho.mp4",
+      "segments": [
+        {
+          "source_scene": "03",
+          "source_file": "media/videos/scene_03_core_problem/1080p60/Scene3_CoreProblem.mp4",
+          "start": 0,
+          "duration": 38.0
+        }
+      ]
+    },
+    {
+      "id": "S03",
+      "title": "Tien deep learning va cau hoi trung gian",
+      "target_duration": 30.0,
+      "actual_duration": 30.0,
+      "output": "media/release_cut_16_scenes/S03_tien_deep_learning_va_cau_hoi_trung_gian.mp4",
+      "segments": [
+        {
+          "source_scene": "04",
+          "source_file": "media/videos/scene_04_prior_approaches/1080p60/Scene4_PriorApproaches.mp4",
+          "start": 0,
+          "duration": 26.0
+        },
+        {
+          "source_scene": "05",
+          "source_file": "media/videos/scene_05_bridge_problem/1080p60/Scene5_BridgeProblem.mp4",
+          "start": 0,
+          "duration": 4.0
+        }
+      ]
+    },
+    {
+      "id": "S04",
+      "title": "Y tuong EBGM",
+      "target_duration": 42.0,
+      "actual_duration": 42.0,
+      "output": "media/release_cut_16_scenes/S04_y_tuong_ebgm.mp4",
+      "segments": [
+        {
+          "source_scene": "06",
+          "source_file": "media/videos/scene_06_ebgm_novel/1080p60/Scene6_EBGM_Novel.mp4",
+          "start": 0,
+          "duration": 42.0
+        }
+      ]
+    },
+    {
+      "id": "S05",
+      "title": "Gabor wavelets",
+      "target_duration": 45.0,
+      "actual_duration": 45.0,
+      "output": "media/release_cut_16_scenes/S05_gabor_wavelets.mp4",
+      "segments": [
+        {
+          "source_scene": "09",
+          "source_file": "media/videos/scene_09_gabor_basics/1080p60/Scene9_GaborBasics.mp4",
+          "start": 0,
+          "duration": 45.0
+        }
+      ]
+    },
+    {
+      "id": "S06",
+      "title": "Jet",
+      "target_duration": 35.0,
+      "actual_duration": 35.0,
+      "output": "media/release_cut_16_scenes/S06_jet.mp4",
+      "segments": [
+        {
+          "source_scene": "10",
+          "source_file": "media/videos/scene_10_jet_basics/1080p60/Scene10_JetBasics.mp4",
+          "start": 0,
+          "duration": 35.0
+        }
+      ]
+    },
+    {
+      "id": "S07",
+      "title": "Similarity va displacement",
+      "target_duration": 44.0,
+      "actual_duration": 44.0,
+      "output": "media/release_cut_16_scenes/S07_similarity_va_displacement.mp4",
+      "segments": [
+        {
+          "source_scene": "11",
+          "source_file": "media/videos/scene_11_similarity/1080p60/Scene11_Similarity.mp4",
+          "start": 0,
+          "duration": 44.0
+        }
+      ]
+    },
+    {
+      "id": "S08",
+      "title": "Image graph",
+      "target_duration": 30.0,
+      "actual_duration": 30.0,
+      "output": "media/release_cut_16_scenes/S08_image_graph.mp4",
+      "segments": [
+        {
+          "source_scene": "12",
+          "source_file": "media/videos/scene_12_individual_graph/1080p60/Scene12_IndividualGraph.mp4",
+          "start": 0,
+          "duration": 30.0
+        }
+      ]
+    },
+    {
+      "id": "S09",
+      "title": "Face bunch graph",
+      "target_duration": 44.0,
+      "actual_duration": 44.0,
+      "output": "media/release_cut_16_scenes/S09_face_bunch_graph.mp4",
+      "segments": [
+        {
+          "source_scene": "13",
+          "source_file": "media/videos/scene_13_bunch_graph/1080p60/Scene13_BunchGraph.mp4",
+          "start": 0,
+          "duration": 44.0
+        }
+      ]
+    },
+    {
+      "id": "S10",
+      "title": "Graph similarity",
+      "target_duration": 32.0,
+      "actual_duration": 32.0,
+      "output": "media/release_cut_16_scenes/S10_graph_similarity.mp4",
+      "segments": [
+        {
+          "source_scene": "14",
+          "source_file": "media/videos/scene_14_graph_similarity/1080p60/Scene14_GraphSimilarity.mp4",
+          "start": 0,
+          "duration": 32.0
+        }
+      ]
+    },
+    {
+      "id": "S11",
+      "title": "Elastic matching",
+      "target_duration": 68.0,
+      "actual_duration": 68.0,
+      "output": "media/release_cut_16_scenes/S11_elastic_matching.mp4",
+      "segments": [
+        {
+          "source_scene": "15",
+          "source_file": "media/videos/scene_15_matching_procedure/1080p60/Scene15_MatchingProcedure.mp4",
+          "start": 0,
+          "duration": 63.0
+        },
+        {
+          "source_scene": "16",
+          "source_file": "media/videos/scene_16_two_stage_schedule/1080p60/Scene16_TwoStageSchedule.mp4",
+          "start": 0,
+          "duration": 5.0
+        }
+      ]
+    },
+    {
+      "id": "S12",
+      "title": "Recognition va ranking",
+      "target_duration": 34.0,
+      "actual_duration": 34.0,
+      "output": "media/release_cut_16_scenes/S12_recognition_va_ranking.mp4",
+      "segments": [
+        {
+          "source_scene": "17",
+          "source_file": "media/videos/scene_17_recognition_stage/1080p60/Scene17_RecognitionStage.mp4",
+          "start": 0,
+          "duration": 34.0
+        }
+      ]
+    },
+    {
+      "id": "S13",
+      "title": "FERET",
+      "target_duration": 40.0,
+      "actual_duration": 40.0,
+      "output": "media/release_cut_16_scenes/S13_feret.mp4",
+      "segments": [
+        {
+          "source_scene": "20",
+          "source_file": "media/videos/scene_20_databases/1080p60/Scene20_Databases.mp4",
+          "start": 0,
+          "duration": 8.0
+        },
+        {
+          "source_scene": "21",
+          "source_file": "media/videos/scene_21_feret_results/1080p60/Scene21_FeretResults.mp4",
+          "start": 0,
+          "duration": 32.0
+        }
+      ]
+    },
+    {
+      "id": "S14",
+      "title": "Cross pose, phase va toc do",
+      "target_duration": 48.0,
+      "actual_duration": 48.0,
+      "output": "media/release_cut_16_scenes/S14_cross_pose_phase_va_toc_do.mp4",
+      "segments": [
+        {
+          "source_scene": "22",
+          "source_file": "media/videos/scene_22_bochum_results/1080p60/Scene22_BochumResults.mp4",
+          "start": 0,
+          "duration": 10.0
+        },
+        {
+          "source_scene": "23",
+          "source_file": "media/videos/scene_23_phase_importance/1080p60/Scene23_PhaseImportance.mp4",
+          "start": 0,
+          "duration": 33.0
+        },
+        {
+          "source_scene": "24",
+          "source_file": "media/videos/scene_24_computational_efficiency/1080p60/Scene24_ComputationalEfficiency.mp4",
+          "start": 0,
+          "duration": 5.0
+        }
+      ]
+    },
+    {
+      "id": "S15",
+      "title": "Buc tranh lon",
+      "target_duration": 38.0,
+      "actual_duration": 38.0,
+      "output": "media/release_cut_16_scenes/S15_buc_tranh_lon.mp4",
+      "segments": [
+        {
+          "source_scene": "27",
+          "source_file": "media/videos/scene_27_intro_generality/1080p60/Scene27_IntroGenerality.mp4",
+          "start": 0,
+          "duration": 16.0
+        },
+        {
+          "source_scene": "28",
+          "source_file": "media/videos/scene_28_vs_preceding/1080p60/Scene28_VsPreceding.mp4",
+          "start": 0,
+          "duration": 3.0
+        },
+        {
+          "source_scene": "29",
+          "source_file": "media/videos/scene_29_vs_template/1080p60/Scene29_VsTemplate.mp4",
+          "start": 0,
+          "duration": 12.0
+        },
+        {
+          "source_scene": "31",
+          "source_file": "media/videos/scene_31_pros_cons/1080p60/Scene31_ProsCons.mp4",
+          "start": 0,
+          "duration": 7.0
+        }
+      ]
+    },
+    {
+      "id": "S16",
+      "title": "Ket luan",
+      "target_duration": 20.0,
+      "actual_duration": 20.0,
+      "output": "media/release_cut_16_scenes/S16_ket_luan.mp4",
+      "segments": [
+        {
+          "source_scene": "32",
+          "source_file": "media/videos/scene_32_legacy_future/1080p60/Scene32_LegacyFuture.mp4",
+          "start": 0,
+          "duration": 4.0
+        },
+        {
+          "source_scene": "33",
+          "source_file": "media/videos/scene_33_conclusion/1080p60/Scene33_Conclusion.mp4",
+          "start": 0,
+          "duration": 16.0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.ipynb_checkpoints/
+
+# ===== Virtual envs =====
+.venv/
+venv/
+env/
+
+# ===== Vendored / large local toolkits =====
+manim/
+manim-GL/
+
+# ===== Manim render output (regenerable, large) =====
+media/
+*.mp4
+*.mov
+*.mkv
+*.gif
+
+# Per-scene UHD/HD exports
+video-2-ebgm/release/uhd_4k/
+video-2-ebgm/release/EBGM_EN_v1_HD.mp4
+
+# ===== Agent / tool dirs =====
+.agents/
+.codex/
+
+# ===== OS junk =====
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# ===== Misc =====
+videos/
+*.log

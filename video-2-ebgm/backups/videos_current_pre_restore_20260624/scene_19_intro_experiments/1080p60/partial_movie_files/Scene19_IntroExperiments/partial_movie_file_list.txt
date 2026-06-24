@@ -1,0 +1,10 @@
+# This file is used internally by FFMPEG.
+file 'file:/media/mlinh/DATA/projects/pattern-recog/video-manim/video-2-ebgm/media/videos/scene_19_intro_experiments/1080p60/partial_movie_files/Scene19_IntroExperiments/3001318199_587511505_2023860264.mp4'
+file 'file:/media/mlinh/DATA/projects/pattern-recog/video-manim/video-2-ebgm/media/videos/scene_19_intro_experiments/1080p60/partial_movie_files/Scene19_IntroExperiments/1858011390_2514011427_3550186115.mp4'
+file 'file:/media/mlinh/DATA/projects/pattern-recog/video-manim/video-2-ebgm/media/videos/scene_19_intro_experiments/1080p60/partial_movie_files/Scene19_IntroExperiments/1858011390_1023958197_1872641872.mp4'
+file 'file:/media/mlinh/DATA/projects/pattern-recog/video-manim/video-2-ebgm/media/videos/scene_19_intro_experiments/1080p60/partial_movie_files/Scene19_IntroExperiments/1858011390_726648442_4108808620.mp4'
+file 'file:/media/mlinh/DATA/projects/pattern-recog/video-manim/video-2-ebgm/media/videos/scene_19_intro_experiments/1080p60/partial_movie_files/Scene19_IntroExperiments/1858011390_3932249147_584477161.mp4'
+file 'file:/media/mlinh/DATA/projects/pattern-recog/video-manim/video-2-ebgm/media/videos/scene_19_intro_experiments/1080p60/partial_movie_files/Scene19_IntroExperiments/1858011390_2616642095_3329530839.mp4'
+file 'file:/media/mlinh/DATA/projects/pattern-recog/video-manim/video-2-ebgm/media/videos/scene_19_intro_experiments/1080p60/partial_movie_files/Scene19_IntroExperiments/1858011390_1589639071_3262403622.mp4'
+file 'file:/media/mlinh/DATA/projects/pattern-recog/video-manim/video-2-ebgm/media/videos/scene_19_intro_experiments/1080p60/partial_movie_files/Scene19_IntroExperiments/1858011390_3832703161_510007695.mp4'
+file 'file:/media/mlinh/DATA/projects/pattern-recog/video-manim/video-2-ebgm/media/videos/scene_19_intro_experiments/1080p60/partial_movie_files/Scene19_IntroExperiments/1858011390_2318836581_4073057713.mp4'

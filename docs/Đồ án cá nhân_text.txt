@@ -1,0 +1,127 @@
+CSC14006 | Nhận dạng
+
+Đồ án cá nhân
+
+Đồ án cá nhân
+
+Phân tích và Trực quan hóa thuật toán trong
+Nhận dạng mẫu
+
+1
+
+Giới thiệu
+
+Manim (viết tắt của Mathematical Animation Engine) là thư viện mã nguồn mở viết bằng Python,
+dùng để tạo video minh họa toán học và khoa học một cách trực quan, chính xác. Thay vì phải
+thao tác kéo thả, Manim cho phép người dùng lập trình toàn bộ chuyển động bằng các dòng code.
+Công cụ này hỗ trợ vẽ hình học 2D, 3D, đồ thị hàm số, hiển thị công thức LaTeX cực kỳ sắc nét
+và tạo nhiều hiệu ứng biến đổi đẹp mắt. Nhờ tính linh hoạt cao, Manim được sử dụng rộng rãi
+trong giảng dạy, nghiên cứu và mô phỏng khoa học.
+Trong đồ án này, mỗi sinh viên chọn một thuật toán liên quan đến nhận dạng mẫu trong các
+tài liệu của môn học (Handbook of Biometrics hoặc Handbook of Face Recognition 2nd Edition),
+sau đó sử dụng thư viện Manim để xây dựng một video ngắn dài 5 - 10 phút nhằm mô phỏng
+trực quan cách thuật toán hoạt động. Video cần đảm bảo tính chính xác học thuật, đồng thời có
+tính truyền đạt hấp dẫn, mạch lạc, hướng tới phong cách trình bày tối giản theo tinh thần của
+các video giáo dục hiện đại (ví dụ như kênh 3Blue1Brown).
+
+2
+
+Mục tiêu
+
+Mục tiêu của đồ án hướng đến việc:
+• Hiểu sâu sắc bản chất của thuật toán đã chọn thông qua việc chuyển đổi quy trình phức tạp
+thành ngôn ngữ hình ảnh chuyển động với đầu vào đầu ra rõ ràng.
+• Rèn luyện các kỹ năng truyền đạt kiến thức khoa học máy tính cho người xem phổ thông
+một cách thu hút và ấn tượng.
+• Tạo ra một sản phẩm truyền thông giáo dục có thể đăng tải trên các nền tảng mạng xã hội.
+Thể hiện kiến thức chuyên môn, truyền cảm hứng và lan toả tri thức đến cộng đồng.
+Khoa CNTT, Trường ĐH KHTN, ĐHQG TP.HCM
+
+Trang 1
+
+CSC14006 | Nhận dạng
+
+3
+
+Đồ án cá nhân
+
+Yêu cầu thực hiện
+• Chọn thuật toán: Từ các tài liệu tham khảo thuộc môn học (Handbook of Biometrics hoặc
+Handbook of Face Recognition 2nd Edition).
+• Phân tích thuật toán: Trình bày rõ ràng bài toán, cốt lõi của ý tưởng, quy trình xử lý,
+ưu điểm và hạn chế.
+• Trực quan hóa bằng Manim: Mô phỏng các bước chính bằng hình ảnh, chuyển động,
+vector, ma trận, không gian đặc trưng. Hạn chế tối đa việc nhồi nhét văn bản trên màn hình.
+• Thuyết minh: Có thể tự thu âm hoặc sử dụng AI Voice. Giọng đọc cần tự nhiên, rõ ràng
+và khớp với nhịp độ hình ảnh.
+• Phụ đề: Bắt buộc phải có phụ đề xuyên suốt video để tăng tính tiếp cận.
+• Định dạng video (tuỳ chọn):
+– Khung hình ngang (tỉ lệ 16:9) nếu định hướng đăng Facebook, YouTube.
+– Khung hình dọc (tỉ lệ 9:16) nếu định hướng đăng TikTok, Reels, Shorts.
+• Nhạc nền: Khuyến khích chèn nhạc nền để tăng tính cuốn hút. Tuy nhiên, âm lượng nhạc
+không được lấn át lời thuyết minh và phải đảm bảo bản quyền để tránh bị gỡ bỏ khỏi
+nền tảng đăng tải.
+• Hậu kỳ: Có thể sử dụng các phần mềm chỉnh sửa video để hỗ trợ hậu kỳ nếu cần, ví dụ
+như nhúng phụ đề trực tiếp vào video hoặc tạo các hiệu ứng hấp dẫn, v.v...
+• Đăng tải và Hashtag: Khi đăng tải, sinh viên phải đính kèm các hashtag bắt buộc:
+#fithcmus #patternrecognition #ai #ml. Có thể bổ sung các hasgtag khác cho phù hợp.
+
+4
+
+Sản phẩm nộp
+
+Mỗi sinh viên nộp một thư mục nén dưới định dạng .zip và đặt tên theo MSSV, trong đó chứa:
+MSSV
+source .........Thư mục mã nguồn Manim chứa các file .py chạy được để xuất ra video.
+url.txt .............Tệp văn bản chứa đường dẫn đến nơi video được chia sẻ công khai.
+
+Khoa CNTT, Trường ĐH KHTN, ĐHQG TP.HCM
+
+Trang 2
+
+CSC14006 | Nhận dạng
+
+5
+
+Đồ án cá nhân
+
+Đánh giá
+
+Đồ án sẽ được đánh giá dựa trên thang điểm 100% với các tiêu chí sau:
+Tiêu chí
+No. 1
+No. 2
+No. 3
+No. 4
+No. 5
+
+6
+
+Chi tiết
+
+Tỉ lệ
+
+Độ chính xác và chiều sâu học thuật của video
+Mức độ trực quan hóa, chất lượng animation
+Chất lượng kể chuyện, khả năng truyền đạt
+Chất lượng video (âm thanh, phụ đề, v.v...)
+Tính loa toả, sự viral của video
+
+20%
+20%
+20%
+20%
+20%
+
+Lưu ý
+
+Vui lòng lưu tâm đến những điều quan trọng sau đây:
+• Đây là đồ án CÁ NHÂN. Thời gian thực hiện là đến khi kết thúc môn học.
+• Bất kỳ hành vi sai trái, thiếu trung thực đều sẽ dẫn đến 0 điểm cho toàn bộ môn học.
+Hết.
+
+Khoa CNTT, Trường ĐH KHTN, ĐHQG TP.HCM
+
+Trang 3
+
+
