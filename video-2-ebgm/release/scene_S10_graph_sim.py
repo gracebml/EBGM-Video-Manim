@@ -21,6 +21,7 @@ class S10_GraphSim(ThreeDScene):
     def construct(self):
         T = load_scene_timing(self.SCENE_KEY)
         self.add_sound(T["audio_path"])
+        add_subtitles(self, T)
         self.camera.background_color = BG_NAVY
         self.set_camera_orientation(phi=0 * DEGREES, theta=-90 * DEGREES, zoom=1.0)
 
@@ -140,7 +141,7 @@ class S10_GraphSim(ThreeDScene):
 
         pts = {name: L(u, v) for name, (u, v) in lm_coords.items()}
 
-        title = label(r"Graph Similarity", UP * 3.03, color=TEXT_PRIMARY, scale=0.56, bold=True)
+        title = label(r"Graph Similarity", UP * 3.03, color=TEXT_PRIMARY, scale=0.72, bold=True)
 
         # B0: fitted graph question.
         fitted_graph = make_graph(pts, color=ACCENT_CYAN, stroke_width=2.0, node_radius=0.064)
@@ -158,24 +159,24 @@ class S10_GraphSim(ThreeDScene):
         formula = MathTex(
             r"S_B = \mathrm{Reward} - \lambda \cdot \mathrm{Penalty}",
             tex_template=EN_TEX_TEMPLATE,
-            color=TEXT_PRIMARY,
-        ).scale(0.82).move_to(UP * 1.85)
+            color=MATH_YELLOW,
+        ).scale(0.92).move_to(UP * 1.85)
 
         reward_card = RoundedRectangle(
-            width=3.0, height=1.8, corner_radius=0.12, color=ACCENT_MINT,
+            width=3.4, height=2.2, corner_radius=0.12, color=ACCENT_MINT,
             stroke_width=1.8, fill_color=ACCENT_MINT, fill_opacity=0.07,
         ).move_to(LEFT * 4.0 + DOWN * 0.8)
         penalty_card = RoundedRectangle(
-            width=3.0, height=1.8, corner_radius=0.12, color=ACCENT_CORAL,
+            width=3.4, height=2.2, corner_radius=0.12, color=ACCENT_CORAL,
             stroke_width=1.8, fill_color=ACCENT_CORAL, fill_opacity=0.07,
         ).move_to(RIGHT * 4.0 + DOWN * 0.8)
 
-        reward_lbl = label(r"Reward", reward_card.get_top() + DOWN * 0.32, color=ACCENT_MINT, scale=0.38, bold=True)
-        penalty_lbl = label(r"Penalty", penalty_card.get_top() + DOWN * 0.32, color=ACCENT_CORAL, scale=0.38, bold=True)
+        reward_lbl = label(r"Reward", reward_card.get_top() + DOWN * 0.38, color=ACCENT_MINT, scale=0.48, bold=True)
+        penalty_lbl = label(r"Penalty", penalty_card.get_top() + DOWN * 0.38, color=ACCENT_CORAL, scale=0.48, bold=True)
 
-        rope = Line(LEFT * 2.5 + DOWN * 0.8, RIGHT * 2.5 + DOWN * 0.8, color=TEXT_MUTED, stroke_width=4)
+        rope = Line(LEFT * 2.3 + DOWN * 0.8, RIGHT * 2.3 + DOWN * 0.8, color=TEXT_MUTED, stroke_width=4)
         knot = Dot(DOWN * 0.8, radius=0.10, color=TEXT_PRIMARY)
-        tug = label(r"optimization = tug of war", DOWN * 2.0, color=TEXT_MUTED, scale=0.32)
+        tug = label(r"optimization = tug of war", DOWN * 2.2, color=TEXT_MUTED, scale=0.42)
 
         b1_t0 = seg_end(T, 0)
         beat_to(
@@ -199,25 +200,25 @@ class S10_GraphSim(ThreeDScene):
         beat_to(seg_end(T, 2), knot.animate.shift(LEFT * 0.45), rope.animate.set_color(ACCENT_MINT))
 
         # B3-B5: reward and penalty terms.
-        jet_match = label(r"jet similarity", reward_card.get_center() + UP * 0.05, color=ACCENT_MINT, scale=0.28, bold=True)
+        jet_match = label(r"jet similarity", reward_card.get_center() + UP * 0.12, color=ACCENT_MINT, scale=0.38, bold=True)
         match_bars = VGroup(
-            Rectangle(width=1.4, height=0.12, stroke_width=0, fill_color=ACCENT_MINT, fill_opacity=0.68),
-            Rectangle(width=1.1, height=0.12, stroke_width=0, fill_color=ACCENT_MINT, fill_opacity=0.48).shift(DOWN * 0.20),
-            Rectangle(width=1.3, height=0.12, stroke_width=0, fill_color=ACCENT_MINT, fill_opacity=0.56).shift(DOWN * 0.40),
-        ).move_to(reward_card.get_bottom() + UP * 0.45)
+            Rectangle(width=1.6, height=0.12, stroke_width=0, fill_color=ACCENT_MINT, fill_opacity=0.68),
+            Rectangle(width=1.3, height=0.12, stroke_width=0, fill_color=ACCENT_MINT, fill_opacity=0.48).shift(DOWN * 0.20),
+            Rectangle(width=1.5, height=0.12, stroke_width=0, fill_color=ACCENT_MINT, fill_opacity=0.56).shift(DOWN * 0.40),
+        ).move_to(reward_card.get_bottom() + UP * 0.55)
         beat_to(seg_end(T, 3), FadeIn(jet_match), FadeIn(match_bars), knot.animate.shift(LEFT * 0.25))
 
-        distortion = label(r"geometric distortion", penalty_card.get_center() + UP * 0.05, color=ACCENT_CORAL, scale=0.28, bold=True)
+        distortion = label(r"geometric distortion", penalty_card.get_center() + UP * 0.12, color=ACCENT_CORAL, scale=0.38, bold=True)
         spring = ParametricFunction(
             lambda t: np.array([t, 0.075 * np.sin(28 * t), 0]),
             t_range=[-0.65, 0.65],
             color=ACCENT_CORAL,
-            stroke_width=2.4,
-        ).move_to(penalty_card.get_bottom() + UP * 0.35)
+            stroke_width=2.8,
+        ).move_to(penalty_card.get_bottom() + UP * 0.55)
         beat_to(seg_end(T, 4), FadeIn(distortion), Create(spring), knot.animate.move_to(DOWN * 0.8), rope.animate.set_color(TEXT_MUTED))
 
-        lambda_lbl = MathTex(r"\lambda", tex_template=EN_TEX_TEMPLATE, color=ACCENT_CORAL).scale(0.85).move_to(RIGHT * 4.0 + UP * 1.35)
-        lambda_note = label(r"scales the penalty", RIGHT * 4.0 + UP * 0.8, color=ACCENT_CORAL, scale=0.26)
+        lambda_lbl = MathTex(r"\lambda", tex_template=EN_TEX_TEMPLATE, color=ACCENT_CORAL).scale(1.2).move_to(RIGHT * 4.0 + UP * 1.35)
+        lambda_note = label(r"scales the penalty", RIGHT * 4.0 + UP * 0.70, color=ACCENT_CORAL, scale=0.38)
         beat_to(seg_end(T, 5), FadeIn(lambda_lbl), FadeIn(lambda_note), penalty_card.animate.set_stroke(ACCENT_CORAL, width=3.0))
 
         # B6: force nose onto forehead, keeping one graph on the face.
@@ -269,7 +270,7 @@ class S10_GraphSim(ThreeDScene):
             stroke_width=2.2,
             buff=0.08,
         )
-        force_lbl = label(r"force nose onto forehead", DOWN * 2.7, color=ACCENT_CORAL, scale=0.36, bold=True)
+        force_lbl = label(r"force nose onto forehead", DOWN * 2.9, color=ACCENT_CORAL, scale=0.48, bold=True)
         b6_switch = min(seg_end(T, 6) - 1.70, elapsed + 0.82)
         beat_to(
             b6_switch,
@@ -317,12 +318,12 @@ class S10_GraphSim(ThreeDScene):
                 stroke_width=3.0,
             )
         )
-        stretch_lbl = label(r"edge stretches", LEFT * 3.6 + UP * 1.35, color=ACCENT_CORAL, scale=0.33, bold=True)
+        stretch_lbl = label(r"edge stretches", LEFT * 3.8 + UP * 1.35, color=ACCENT_CORAL, scale=0.45, bold=True)
         stretch_hint = thin_arrow(
-            start=stretch_lbl.get_right() + RIGHT * 0.08,
-            end=(final_pts["eye_l"] + final_pts["nose"]) / 2 + LEFT * 0.15,
+            start=stretch_lbl.get_right() + RIGHT * 0.1,
+            end=(final_pts["eye_l"] + final_pts["nose"]) / 2 + LEFT * 0.2,
             color=ACCENT_CORAL,
-            stroke_width=1.9,
+            stroke_width=2.2,
             buff=0.08,
         )
         beat_to(
@@ -343,8 +344,8 @@ class S10_GraphSim(ThreeDScene):
             fill_opacity=0.15,
         ).move_to((final_pts["eye_l"] + final_pts["nose"]) / 2)
         
-        huge = label(r"ENORMOUS PENALTY", RIGHT * 3.5 + UP * 1.5, color=ACCENT_CORAL, scale=0.44, bold=True)
-        score = MathTex(r"S_B \downarrow", tex_template=EN_TEX_TEMPLATE, color=ACCENT_CORAL).scale(0.92).move_to(RIGHT * 3.5 + UP * 0.8)
+        huge = label(r"ENORMOUS PENALTY", RIGHT * 3.6 + UP * 1.6, color=ACCENT_CORAL, scale=0.58, bold=True)
+        score = MathTex(r"S_B \downarrow", tex_template=EN_TEX_TEMPLATE, color=ACCENT_CORAL).scale(1.15).move_to(RIGHT * 3.6 + UP * 0.9)
         beat_to(
             seg_end(T, 8),
             FadeIn(penalty_region),

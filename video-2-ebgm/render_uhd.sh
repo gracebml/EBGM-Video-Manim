@@ -5,6 +5,7 @@ source ~/miniconda3/etc/profile.d/conda.sh
 conda activate vid
 
 declare -a SCENES=(
+  "release/scene_S00_intro.py S00_Intro"
   "release/scene_S01_cold_open.py S01_ColdOpen"
   "release/scene_S02_why_hard.py S02_WhyHard"
   "release/scene_S03_pre_deeplearning.py S03_PreDL"

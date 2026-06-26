@@ -22,6 +22,7 @@ class S08_ImageGraph(ThreeDScene):
     def construct(self):
         T = load_scene_timing(self.SCENE_KEY)
         self.add_sound(T["audio_path"])
+        add_subtitles(self, T)
         self.camera.background_color = BG_NAVY
         self.set_camera_orientation(phi=0 * DEGREES, theta=-90 * DEGREES, zoom=1.0)
 
@@ -131,12 +132,12 @@ class S08_ImageGraph(ThreeDScene):
             ("eye_r", "cheek_r"), ("mouth_r", "cheek_r"),
         ]
 
-        title = label(r"Image Graph", UP * 3.05, color=TEXT_PRIMARY, scale=0.58, bold=True)
+        title = label(r"Image Graph", UP * 3.05, color=TEXT_PRIMARY, scale=0.72, bold=True)
         nodes = VGroup(*[Dot(p, radius=0.075, color=ACCENT_LAVENDER) for p in pts.values()])
         jets = VGroup(*[jet_icon(ACCENT_CYAN, scale=0.40).move_to(p) for p in pts.values()])
 
         # B0: sprinkle jets onto landmarks.
-        sprinkle = label(r"sprinkle jets onto landmarks", DOWN * 2.72, color=ACCENT_CYAN, scale=0.36, bold=True)
+        sprinkle = label(r"sprinkle jets onto landmarks", DOWN * 2.72, color=ACCENT_CYAN, scale=0.48, bold=True)
         beat_to(
             seg_end(T, 0),
             FadeIn(title, shift=DOWN * 0.05),
@@ -147,7 +148,7 @@ class S08_ImageGraph(ThreeDScene):
 
         # B1: connect eyes, nose, mouth.
         edge_lines = VGroup(*[Line(pts[a], pts[b], color=ACCENT_BLUE, stroke_width=2.0).set_opacity(0.72) for a, b in edges])
-        landmarks = label(r"eyes | nose | mouth", UP * 2.42, color=TEXT_MUTED, scale=0.31)
+        landmarks = label(r"eyes | nose | mouth", UP * 2.42, color=TEXT_MUTED, scale=0.42)
         beat_to(
             seg_end(T, 1),
             FadeOut(sprinkle),
@@ -166,8 +167,8 @@ class S08_ImageGraph(ThreeDScene):
         )
 
         # B3: node = texture barcode / jet.
-        node_panel = panel(2.8, 1.6, LEFT * 4.55 + DOWN * 0.8, ACCENT_CYAN)
-        node_label = label(r"node = jet", node_panel.get_top() + DOWN * 0.32, color=ACCENT_CYAN, scale=0.38, bold=True)
+        node_panel = panel(3.2, 1.8, LEFT * 4.55 + DOWN * 0.8, ACCENT_CYAN)
+        node_label = label(r"node = jet", node_panel.get_top() + DOWN * 0.32, color=ACCENT_CYAN, scale=0.48, bold=True)
         bars = VGroup()
         for i, h in enumerate([0.22, 0.48, 0.30, 0.62, 0.38, 0.54, 0.26, 0.58]):
             b = Rectangle(width=0.06, height=h, stroke_width=0, fill_color=ACCENT_CYAN, fill_opacity=0.75)
@@ -183,9 +184,9 @@ class S08_ImageGraph(ThreeDScene):
         )
 
         # B4: edge = geometric distance.
-        edge_panel = panel(2.8, 1.6, RIGHT * 4.55 + DOWN * 0.8, ACCENT_MINT)
-        edge_label = label(r"edge = distance", edge_panel.get_top() + DOWN * 0.32, color=ACCENT_MINT, scale=0.36, bold=True)
-        delta = MathTex(r"\Delta x", tex_template=EN_TEX_TEMPLATE, color=ACCENT_MINT).scale(0.85).move_to(RIGHT * 4.55 + DOWN * 1.05)
+        edge_panel = panel(3.2, 1.8, RIGHT * 4.55 + DOWN * 0.8, ACCENT_MINT)
+        edge_label = label(r"edge = distance", edge_panel.get_top() + DOWN * 0.32, color=ACCENT_MINT, scale=0.48, bold=True)
+        delta = MathTex(r"\Delta x", tex_template=EN_TEX_TEMPLATE, color=ACCENT_MINT).scale(1.05).move_to(RIGHT * 4.55 + DOWN * 1.05)
         edge_hi = Line(pts["eye_l"], pts["nose"], color=ACCENT_MINT, stroke_width=5.0)
         beat_to(
             seg_end(T, 4),
@@ -202,7 +203,7 @@ class S08_ImageGraph(ThreeDScene):
         bone_pts = {name: (p - face_center) * 0.82 + np.array([2.45, -0.15, 0]) for name, p in pts.items()}
 
         sep = Line(UP * 2.15, DOWN * 2.35, color=GRID_LINE, stroke_width=1.2)
-        skin_title = label(r"skin surface", LEFT * 2.45 + UP * 2.12, color=ACCENT_CYAN, scale=0.40, bold=True)
+        skin_title = label(r"skin surface", LEFT * 2.45 + UP * 2.12, color=ACCENT_CYAN, scale=0.52, bold=True)
         beat_to(
             seg_end(T, 5),
             FadeOut(node_panel),
@@ -224,11 +225,11 @@ class S08_ImageGraph(ThreeDScene):
         # B6: bone structure.
         bone_edges = VGroup(*[Line(bone_pts[a], bone_pts[b], color=ACCENT_MINT, stroke_width=2.4).set_opacity(0.85) for a, b in edges])
         bone_nodes = VGroup(*[Dot(bone_pts[name], radius=0.065, color=ACCENT_MINT) for name in pts.keys()])
-        bone_title = label(r"bone structure", RIGHT * 2.45 + UP * 2.12, color=ACCENT_MINT, scale=0.40, bold=True)
+        bone_title = label(r"bone structure", RIGHT * 2.45 + UP * 2.12, color=ACCENT_MINT, scale=0.52, bold=True)
         beat_to(seg_end(T, 6), FadeIn(bone_edges), FadeIn(bone_nodes), FadeIn(bone_title, shift=DOWN * 0.05))
 
         # B7: independently processed.
-        independent = label(r"processed independently", DOWN * 2.72, color=ACCENT_LAVENDER, scale=0.42, bold=True)
+        independent = label(r"processed independently", DOWN * 2.72, color=ACCENT_LAVENDER, scale=0.52, bold=True)
         beat_to(
             seg_end(T, 7),
             jets.animate.set_opacity(0.92),

@@ -6,7 +6,7 @@
       "scene": "scene_01",
       "file": "audio/en/scene_01.mp3",
       "duration": 25.728,
-      "text": "You glance at someone you know on the street, and your brain recognizes them in a tenth of a second. But how does a computer recognize a face? The problem has two branches. Verification 1.1. Am I really the owner of this phone? And identification 1.0. Who is this person among millions of records? Today we tackle the harder branch. 1.0 identification.",
+      "text": "You glance at someone you know on the street, and your brain recognizes them in a tenth of a second. But how does a computer recognize a face? The problem has two branches. Verification 1:1. Am I really the owner of this phone? And identification 1:N. Who is this person among millions of records? Today we tackle the harder branch. 1:N identification.",
       "segments": [
         {
           "start": 0.0,
@@ -26,7 +26,7 @@
         {
           "start": 9.9,
           "end": 11.5,
-          "text": "Verification 1.1."
+          "text": "Verification 1:1."
         },
         {
           "start": 11.96,
@@ -36,7 +36,7 @@
         {
           "start": 14.88,
           "end": 17.02,
-          "text": "And identification 1.0."
+          "text": "And identification 1:N."
         },
         {
           "start": 17.64,
@@ -51,7 +51,7 @@
         {
           "start": 23.14,
           "end": 24.34,
-          "text": "1.0 identification."
+          "text": "1:N identification."
         }
       ],
       "words": [
@@ -796,7 +796,7 @@
       "scene": "scene_03",
       "file": "audio/en/scene_03.mp3",
       "duration": 57.214,
-      "text": "Today, facing a face recognition problem, what's our first instinct? Build a CNN, gather millions of images, define a loss function, and let backpropagation do the rest. But rewind to 1997. No powerful GPUs. No massive data sets. Recognizing a face under changing light or expression was nearly impossible if you only compared pixels. So how did scientists back then solve this geometric variance problem? Not with deep learning, but with pure mathematics and signal processing. In 1997, a group published in IEE PAMI, one of the most rigorous AI journals, an unusual idea, teach the computer to see a face the way our visual cortex does. That algorithm is elastic bunch graph matching. It once ranked among the very best in the ferret blind tests of the 1990s. Today, we dissect it.",
+      "text": "Today, facing a face recognition problem, what's our first instinct? Build a CNN, gather millions of images, define a loss function, and let backpropagation do the rest. But rewind to 1997. No powerful GPUs. No massive data sets. Recognizing a face under changing light or expression was nearly impossible if you only compared pixels. So how did scientists back then solve this geometric variance problem? Not with deep learning, but with pure mathematics and signal processing. In 1997, a group published in IEEE PAMI, one of the most rigorous AI journals, an unusual idea, teach the computer to see a face the way our visual cortex does. That algorithm is elastic bunch graph matching. It once ranked among the very best in the FERET blind tests of the 1990s. Today, we dissect it.",
       "segments": [
         {
           "start": 0.0,
@@ -841,7 +841,7 @@
         {
           "start": 34.7,
           "end": 42.6,
-          "text": "In 1997, a group published in IEE PAMI, one of the most rigorous AI journals, an unusual idea,"
+          "text": "In 1997, a group published in IEEE PAMI, one of the most rigorous AI journals, an unusual idea,"
         },
         {
           "start": 43.26,
@@ -856,7 +856,7 @@
         {
           "start": 50.46,
           "end": 54.94,
-          "text": "It once ranked among the very best in the ferret blind tests of the 1990s."
+          "text": "It once ranked among the very best in the FERET blind tests of the 1990s."
         },
         {
           "start": 55.26,
@@ -2486,12 +2486,12 @@
       "scene": "scene_06",
       "file": "audio/en/scene_06.mp3",
       "duration": 28.561,
-      "text": "Now, throw the whole bank of 40 gabber wavelets, five frequencies times eight orientations, at a single point like the corner of an eye, and you get 40 complex numbers. That bundle is called a jet. Think of a jet as a unique barcode of that eye corner. And since they're complex, each element carries two weapons. Amplitude, telling us what shape the region has, and phase, telling us exactly which coordinate the feature sits at.",
+      "text": "Now, throw the whole bank of 40 Gabor wavelets, five frequencies times eight orientations, at a single point like the corner of an eye, and you get 40 complex numbers. That bundle is called a jet. Think of a jet as a unique barcode of that eye corner. And since they're complex, each element carries two weapons. Amplitude, telling us what shape the region has, and phase, telling us exactly which coordinate the feature sits at.",
       "segments": [
         {
           "start": 0.0,
           "end": 2.62,
-          "text": "Now, throw the whole bank of 40 gabber wavelets,"
+          "text": "Now, throw the whole bank of 40 Gabor wavelets,"
         },
         {
           "start": 2.74,
@@ -5501,7 +5501,7 @@
       "scene": "scene_13",
       "file": "audio/en/scene_13.mp3",
       "duration": 36.873,
-      "text": "Beautiful theory, but how about reality? In the U.S. government's Tough Ferret test, EBGM was given exactly one image per person in the database. The results? Same frontal pose, 98%. Same profile pose, mirrored left-right, 84%. Same half-profile angle, 57%. But if the gallery is frontal while the probe is turned at an angle, it drops sharply to just 18%. Clearly, EBGM is king at handling changes in expression or lighting, but large 3D rotation remains its Achilles heel.",
+      "text": "Beautiful theory, but how about reality? In the U.S. government's Tough FERET test, EBGM was given exactly one image per person in the database. The results? Same frontal pose, 98%. Same profile pose, mirrored left-right, 84%. Same half-profile angle, 57%. But if the gallery is frontal while the probe is turned at an angle, it drops sharply to just 18%. Clearly, EBGM is king at handling changes in expression or lighting, but large 3D rotation remains its Achilles heel.",
       "segments": [
         {
           "start": 0.0,
@@ -5511,7 +5511,7 @@
         {
           "start": 2.74,
           "end": 5.5,
-          "text": "In the U.S. government's Tough Ferret test,"
+          "text": "In the U.S. government's Tough FERET test,"
         },
         {
           "start": 5.98,
@@ -6956,7 +6956,7 @@
       "scene": "scene_16",
       "file": "audio/en/scene_16.mp3",
       "duration": 24.056,
-      "text": "Elastic bunch graph matching is a symphony of local signal processing, wavelets, and spatial geometry chass graphs. Although deep learning now wears the crown, EBGM's philosophy of elastic landmarks still lives on in modern face detection architectures, local, elastic, general. Thank you for watching. See you in the next algorithm video.",
+      "text": "Elastic bunch graph matching is a symphony of local signal processing, wavelets, and spatial geometry graphs. Although deep learning now wears the crown, EBGM's philosophy of elastic landmarks still lives on in modern face detection architectures, local, elastic, general. Thank you for watching. See you in the next algorithm video.",
       "segments": [
         {
           "start": 0.0,
@@ -6971,7 +6971,7 @@
         {
           "start": 4.3,
           "end": 7.42,
-          "text": "wavelets, and spatial geometry chass graphs."
+          "text": "wavelets, and spatial geometry graphs."
         },
         {
           "start": 7.94,

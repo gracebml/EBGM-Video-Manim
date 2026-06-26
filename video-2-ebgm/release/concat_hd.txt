@@ -1,3 +1,4 @@
+file '/media/mlinh/Kingston/projects/pattern-recog/video-manim/video-2-ebgm/media/videos/scene_S00_intro/1080p60/S00_Intro.mp4'
 file '/media/mlinh/Kingston/projects/pattern-recog/video-manim/video-2-ebgm/media/videos/scene_S01_cold_open/1080p60/S01_ColdOpen.mp4'
 file '/media/mlinh/Kingston/projects/pattern-recog/video-manim/video-2-ebgm/media/videos/scene_S02_why_hard/1080p60/S02_WhyHard.mp4'
 file '/media/mlinh/Kingston/projects/pattern-recog/video-manim/video-2-ebgm/media/videos/scene_S03_pre_deeplearning/1080p60/S03_PreDL.mp4'

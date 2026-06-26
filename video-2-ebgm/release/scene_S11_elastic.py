@@ -21,6 +21,7 @@ class S11_Elastic(ThreeDScene):
     def construct(self):
         T = load_scene_timing(self.SCENE_KEY)
         self.add_sound(T["audio_path"])
+        add_subtitles(self, T)
         self.camera.background_color = BG_NAVY
         self.set_camera_orientation(phi=0 * DEGREES, theta=-90 * DEGREES, zoom=1.0)
 

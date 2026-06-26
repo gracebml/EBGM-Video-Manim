@@ -22,6 +22,7 @@ class S03_PreDL(MovingCameraScene):
     def construct(self):
         T = load_scene_timing(self.SCENE_KEY)
         self.add_sound(T["audio_path"])
+        add_subtitles(self, T)
         self.camera.background_color = BG_NAVY
 
         elapsed = 0.0

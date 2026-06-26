@@ -5,6 +5,7 @@ cd "$(dirname "$0")"
 source /home/mlinh/miniconda3/etc/profile.d/conda.sh; conda activate vid
 
 declare -a SC=(
+ "scene_S00_intro.py:S00_Intro"
  "scene_S01_cold_open.py:S01_ColdOpen"
  "scene_S02_why_hard.py:S02_WhyHard"
  "scene_S03_pre_deeplearning.py:S03_PreDL"

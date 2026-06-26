@@ -21,6 +21,7 @@ class S16_Conclusion(Scene):
     def construct(self):
         T = load_scene_timing(self.SCENE_KEY)
         self.add_sound(T["audio_path"])
+        add_subtitles(self, T)
         self.camera.background_color = BG_NAVY
 
         elapsed = 0.0
@@ -71,15 +72,15 @@ class S16_Conclusion(Scene):
             img.move_to(frame.get_center())
             return Group(frame, img)
 
-        title = label("Elastic Bunch Graph Matching", UP * 3.0, color=TEXT_PRIMARY, scale=0.55, bold=True)
-        subtitle = label("a symphony of three ideas", UP * 2.42, color=TEXT_MUTED, scale=0.30)
+        title = label("Elastic Bunch Graph Matching", UP * 3.0, color=TEXT_PRIMARY, scale=0.72, bold=True)
+        subtitle = label("a symphony of three ideas", UP * 2.42, color=TEXT_MUTED, scale=0.45)
 
         # B0-B2: Symphony cards
         centers = [LEFT * 3.5 + UP * 0.45, ORIGIN + UP * 0.45, RIGHT * 3.5 + UP * 0.45]
         cards = VGroup()
         names = [("local signal", ACCENT_CYAN), ("wavelets", ACCENT_LAVENDER), ("geometry", ACCENT_MINT)]
         for center, (name, color) in zip(centers, names):
-            box = RoundedRectangle(width=2.45, height=1.42, corner_radius=0.13, color=color, stroke_width=1.5, fill_color=BG_NAVY_SOFT, fill_opacity=0.80).move_to(center)
+            box = RoundedRectangle(width=2.65, height=1.60, corner_radius=0.13, color=color, stroke_width=1.5, fill_color=BG_NAVY_SOFT, fill_opacity=0.80).move_to(center)
             if name == "local signal":
                 icon = VGroup(*[Dot(center + np.array([x, y, 0]), radius=0.035, color=color) for x, y in [(-0.32, 0.18), (0.0, 0.25), (0.30, 0.12), (-0.10, -0.20), (0.28, -0.24)]])
             elif name == "wavelets":
@@ -87,7 +88,7 @@ class S16_Conclusion(Scene):
             else:
                 pts = [center + LEFT * 0.36 + UP * 0.25, center + RIGHT * 0.36 + UP * 0.25, center + DOWN * 0.10, center + LEFT * 0.22 + DOWN * 0.36, center + RIGHT * 0.22 + DOWN * 0.36]
                 icon = VGroup(*[Line(pts[a], pts[b], color=color, stroke_width=1.5) for a, b in [(0, 1), (0, 2), (1, 2), (2, 3), (2, 4), (3, 4)]], *[Dot(p, radius=0.035, color=color) for p in pts])
-            txt = label(name, center + DOWN * 0.45, color=color, scale=0.27, bold=True)
+            txt = label(name, center + DOWN * 0.50, color=color, scale=0.38, bold=True)
             cards.add(VGroup(box, icon, txt))
 
         beat_to(seg_end(T, 2), FadeIn(title), FadeIn(subtitle), LaggedStart(*[FadeIn(c, scale=0.85) for c in cards], lag_ratio=0.10))
@@ -109,9 +110,9 @@ class S16_Conclusion(Scene):
                 fill_color=ACCENT_CORAL,
                 fill_opacity=0.12
             ),
-            label("deep learning", ORIGIN + DOWN * 0.50, color=ACCENT_CORAL, scale=0.33, bold=True),
+            label("deep learning", ORIGIN + DOWN * 0.60, color=ACCENT_CORAL, scale=0.45, bold=True),
         ).move_to(UP * 0.20)
-        lives = label("elastic landmarks still live on", DOWN * 1.55, color=ACCENT_LAVENDER, scale=0.42, bold=True)
+        lives = label("elastic landmarks still live on", DOWN * 1.65, color=ACCENT_LAVENDER, scale=0.55, bold=True)
         
         beat_to(seg_end(T, 5), FadeOut(cards), FadeIn(crown, shift=DOWN * 0.08), FadeIn(lives, shift=UP * 0.08))
 
@@ -166,13 +167,13 @@ class S16_Conclusion(Scene):
 
         # Keywords LOCAL · ELASTIC · GENERAL
         words = VGroup(
-            label("LOCAL", LEFT * 3.0 + DOWN * 2.55, color=ACCENT_CYAN, scale=0.48, bold=True),
-            label("ELASTIC", DOWN * 2.55, color=ACCENT_LAVENDER, scale=0.48, bold=True),
-            label("GENERAL", RIGHT * 3.0 + DOWN * 2.55, color=ACCENT_MINT, scale=0.48, bold=True),
+            label("LOCAL", LEFT * 3.0 + DOWN * 2.70, color=ACCENT_CYAN, scale=0.58, bold=True),
+            label("ELASTIC", DOWN * 2.70, color=ACCENT_LAVENDER, scale=0.58, bold=True),
+            label("GENERAL", RIGHT * 3.0 + DOWN * 2.70, color=ACCENT_MINT, scale=0.58, bold=True),
         )
         dots = VGroup(
-            Dot(LEFT * 1.5 + DOWN * 2.55, radius=0.045, color=TEXT_MUTED),
-            Dot(RIGHT * 1.5 + DOWN * 2.55, radius=0.045, color=TEXT_MUTED),
+            Dot(LEFT * 1.5 + DOWN * 2.70, radius=0.05, color=TEXT_MUTED),
+            Dot(RIGHT * 1.5 + DOWN * 2.70, radius=0.05, color=TEXT_MUTED),
         )
 
         beat_to(
@@ -195,15 +196,15 @@ class S16_Conclusion(Scene):
             )
         )
 
-        # B7-B8: Thanks & credits with dimmed background
-        thanks = label("Thank you for watching", ORIGIN + UP * 0.35, color=TEXT_PRIMARY, scale=0.55, bold=True)
-        next_video = label("See you in the next algorithm video", ORIGIN + DOWN * 0.35, color=TEXT_MUTED, scale=0.34)
+        # B7-B8: Thanks & credits on clean background
+        thanks = label("Thank you for watching", ORIGIN + UP * 0.45, color=TEXT_PRIMARY, scale=0.72, bold=True)
+        next_video = label("See you in the next algorithm video", ORIGIN + DOWN * 0.35, color=TEXT_MUTED, scale=0.45)
 
         beat_to(
             seg_end(T, 8),
-            final_face_card.animate.set_opacity(0.18),
-            final_graph.animate.set_opacity(0.18),
-            words.animate.set_opacity(0.35),
+            FadeOut(final_face_card),
+            FadeOut(final_graph),
+            words.animate.set_opacity(0.25),
             dots.animate.set_opacity(0.25),
             FadeIn(thanks, shift=UP * 0.07),
             FadeIn(next_video, shift=UP * 0.05)

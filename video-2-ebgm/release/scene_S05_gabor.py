@@ -34,6 +34,7 @@ class S05_Gabor(ThreeDScene):
     def construct(self):
         T = load_scene_timing(self.SCENE_KEY)
         self.add_sound(T["audio_path"])
+        add_subtitles(self, T)
         self.camera.background_color = BG_NAVY
         self.set_camera_orientation(phi=0 * DEGREES, theta=-90 * DEGREES, zoom=1.0)
 
@@ -141,8 +142,8 @@ class S05_Gabor(ThreeDScene):
         zoom_line_top = Line(focus.get_top(), patch_card.get_top() + LEFT * 0.05, color=ACCENT_CYAN, stroke_width=1.2).set_opacity(0.4)
         zoom_line_bottom = Line(focus.get_bottom(), patch_card.get_bottom() + LEFT * 0.05, color=ACCENT_CYAN, stroke_width=1.2).set_opacity(0.4)
         
-        question = label("How does AI see one point?", UP * 2.10, color=ACCENT_CYAN, scale=0.44, bold=True)
-        patch_lbl = label("local patch", patch_card.get_center() + DOWN * 1.35, color=TEXT_MUTED, scale=0.26)
+        question = label("How does AI see one point?", UP * 2.10, color=ACCENT_CYAN, scale=0.58, bold=True)
+        patch_lbl = label("local patch", patch_card.get_center() + DOWN * 1.35, color=TEXT_MUTED, scale=0.38)
         
         play_t(1.0, FadeIn(title), FadeIn(question), FadeIn(face_card))
         play_t(0.8, Create(focus))
@@ -158,13 +159,13 @@ class S05_Gabor(ThreeDScene):
         beat_to(seg_end(T, 0))
 
         # B1: raw pixels vs biological cortex receptive field.
-        raw_lbl = label("raw pixels", LEFT * 2.5 + DOWN * 1.40, color=ACCENT_CORAL, scale=0.28, bold=True)
+        raw_lbl = label("raw pixels", LEFT * 2.5 + DOWN * 1.40, color=ACCENT_CORAL, scale=0.42, bold=True)
         raw_grid = pixel_grid(rows=6, cols=6, side=0.20).move_to(LEFT * 2.5 + DOWN * 0.30)
         
         # Slim Cross instead of Line slash
         reject = Cross(raw_grid, color=ACCENT_CORAL, stroke_width=3.0).scale(0.92)
         
-        bio_lbl = label("borrow from biology", RIGHT * 2.5 + DOWN * 1.40, color=ACCENT_LAVENDER, scale=0.30, bold=True)
+        bio_lbl = label("borrow from biology", RIGHT * 2.5 + DOWN * 1.40, color=ACCENT_LAVENDER, scale=0.42, bold=True)
         bio_node = Dot(RIGHT * 2.5 + UP * 0.25, radius=0.18, color=ACCENT_LAVENDER)
         bio_lines = VGroup(*[
             Line(RIGHT * 2.5 + UP * 0.25, RIGHT * 2.5 + np.array([x, y - 0.15, 0]), color=ACCENT_TEAL, stroke_width=2.0)
@@ -201,26 +202,26 @@ class S05_Gabor(ThreeDScene):
         beat_to(seg_end(T, 1))
 
         # B2: sine wave inside a Gaussian envelope.
-        axis = NumberLine(x_range=[-2.4, 2.4, 1], length=4.5, color=GRID_LINE, stroke_width=1.2).shift(LEFT * 2.8 + UP * 0.3)
-        sine = graph_curve(lambda x: 0.35 * np.sin(6 * x), x0=-2.4, x1=2.4, color=ACCENT_CYAN).shift(LEFT * 2.8 + UP * 0.3)
+        axis = NumberLine(x_range=[-2.4, 2.4, 1], length=4.5, color=GRID_LINE, stroke_width=1.2).shift(LEFT * 3.1 + UP * 0.3)
+        sine = graph_curve(lambda x: 0.35 * np.sin(6 * x), x0=-2.4, x1=2.4, color=ACCENT_CYAN).shift(LEFT * 3.1 + UP * 0.3)
         
-        envelope_up = graph_curve(lambda x: 0.8 * np.exp(-0.55 * x * x), x0=-2.4, x1=2.4, color=ACCENT_TEAL, width=2.0).shift(LEFT * 2.8 + UP * 0.3)
-        envelope_down = graph_curve(lambda x: -0.8 * np.exp(-0.55 * x * x), x0=-2.4, x1=2.4, color=ACCENT_TEAL, width=2.0).shift(LEFT * 2.8 + UP * 0.3)
+        envelope_up = graph_curve(lambda x: 0.8 * np.exp(-0.55 * x * x), x0=-2.4, x1=2.4, color=ACCENT_TEAL, width=2.0).shift(LEFT * 3.1 + UP * 0.3)
+        envelope_down = graph_curve(lambda x: -0.8 * np.exp(-0.55 * x * x), x0=-2.4, x1=2.4, color=ACCENT_TEAL, width=2.0).shift(LEFT * 3.1 + UP * 0.3)
         
-        sine_lbl = label("sine wave", LEFT * 2.8 + DOWN * 0.9, color=ACCENT_CYAN, scale=0.28)
-        gauss_lbl = label("Gaussian envelope", LEFT * 2.8 + DOWN * 1.3, color=ACCENT_TEAL, scale=0.28)
+        sine_lbl = label("sine wave", LEFT * 3.1 + DOWN * 0.9, color=ACCENT_CYAN, scale=0.40)
+        gauss_lbl = label("Gaussian envelope", LEFT * 3.1 + DOWN * 1.3, color=ACCENT_TEAL, scale=0.40)
         
-        times = label(r"$\times$", LEFT * 0.25 + UP * 0.3, color=TEXT_PRIMARY, scale=0.62, bold=True)
-        equals = label(r"$=$", RIGHT * 0.75 + UP * 0.3, color=TEXT_PRIMARY, scale=0.62, bold=True)
+        times = label(r"$\times$", LEFT * 0.35 + UP * 0.3, color=MATH_YELLOW, scale=0.85, bold=True)
+        equals = label(r"$=$", RIGHT * 0.35 + UP * 0.3, color=MATH_YELLOW, scale=0.85, bold=True)
         
-        gabor_axis = NumberLine(x_range=[-2.4, 2.4, 1], length=4.5, color=GRID_LINE, stroke_width=1.2).shift(RIGHT * 2.85 + UP * 0.3)
-        gabor_curve = graph_curve(lambda x: 0.72 * np.exp(-0.55 * x * x) * np.sin(6 * x), x0=-2.4, x1=2.4, color=ACCENT_LAVENDER, width=2.8).shift(RIGHT * 2.85 + UP * 0.3)
-        gabor_lbl = label("Gabor wavelet", RIGHT * 2.85 + DOWN * 0.9, color=ACCENT_LAVENDER, scale=0.34, bold=True)
+        gabor_axis = NumberLine(x_range=[-2.4, 2.4, 1], length=4.5, color=GRID_LINE, stroke_width=1.2).shift(RIGHT * 3.1 + UP * 0.3)
+        gabor_curve = graph_curve(lambda x: 0.72 * np.exp(-0.55 * x * x) * np.sin(6 * x), x0=-2.4, x1=2.4, color=ACCENT_LAVENDER, width=2.8).shift(RIGHT * 3.1 + UP * 0.3)
+        gabor_lbl = label("Gabor wavelet", RIGHT * 3.1 + DOWN * 0.9, color=ACCENT_LAVENDER, scale=0.52, bold=True)
         formula = MathTex(
             r"\psi(x)=e^{-x^2/2\sigma^2}\cos(kx)",
             tex_template=EN_TEX_TEMPLATE,
-            color=TEXT_PRIMARY,
-        ).scale(0.62).move_to(RIGHT * 2.85 + DOWN * 1.6)
+            color=MATH_YELLOW,
+        ).scale(0.85).move_to(RIGHT * 3.1 + DOWN * 1.6)
         
         play_t(
             1.0,
@@ -245,13 +246,13 @@ class S05_Gabor(ThreeDScene):
 
         # B3: interactive filter sweeps over the patch at different orientations.
         patch_card2 = make_face_card(ImageMobject(str(patch_path)).scale_to_fit_height(2.5), color=ACCENT_CYAN).move_to(LEFT * 3.0 + DOWN * 0.30)
-        patch_lbl2 = label("eye patch", LEFT * 3.0 + DOWN * 1.85, color=TEXT_MUTED, scale=0.26)
+        patch_lbl2 = label("eye patch", LEFT * 3.0 + DOWN * 1.85, color=TEXT_MUTED, scale=0.38)
         
         bg_bar = RoundedRectangle(width=0.45, height=2.5, corner_radius=0.1, color=GRID_LINE, stroke_width=1.0, fill_color=BG_NAVY_SOFT, fill_opacity=0.6).move_to(RIGHT * 2.5 + DOWN * 0.30)
-        response_lbl = label("edge response", RIGHT * 2.5 + DOWN * 1.85, color=ACCENT_CYAN, scale=0.30, bold=True)
+        response_lbl = label("edge response", RIGHT * 2.5 + DOWN * 1.85, color=ACCENT_CYAN, scale=0.42, bold=True)
         
-        orientation_lbl = label("one orientation", RIGHT * 0.1 + DOWN * 1.0, color=ACCENT_TEAL, scale=0.28, bold=True)
-        freq_lbl = label("one frequency", RIGHT * 0.1 + DOWN * 1.4, color=ACCENT_CYAN, scale=0.28, bold=True)
+        orientation_lbl = label("one orientation", RIGHT * 0.1 + DOWN * 1.0, color=ACCENT_TEAL, scale=0.38, bold=True)
+        freq_lbl = label("one frequency", RIGHT * 0.1 + DOWN * 1.4, color=ACCENT_CYAN, scale=0.38, bold=True)
         
         x_tracker = ValueTracker(-1.4)
         self.sweep_theta = 0.0
@@ -334,10 +335,10 @@ class S05_Gabor(ThreeDScene):
         dark_card = make_face_card(dark_img, color=ACCENT_CYAN).move_to(LEFT * 3.4 + DOWN * 0.30)
         bright_card = make_face_card(bright_img, color=ACCENT_CYAN).move_to(LEFT * 1.4 + DOWN * 0.30)
         
-        dark_lbl = label("dark patch", LEFT * 3.4 + DOWN * 1.45, color=TEXT_MUTED, scale=0.24)
-        bright_lbl = label("bright patch", LEFT * 1.4 + DOWN * 1.45, color=TEXT_MUTED, scale=0.24)
+        dark_lbl = label("dark patch", LEFT * 3.4 + DOWN * 1.45, color=TEXT_MUTED, scale=0.36)
+        bright_lbl = label("bright patch", LEFT * 1.4 + DOWN * 1.45, color=TEXT_MUTED, scale=0.36)
         
-        minus_mean = MathTex(r"-\ \mathrm{mean\ light}", tex_template=EN_TEX_TEMPLATE, color=ACCENT_CORAL).scale(0.50).move_to(RIGHT * 0.6 + DOWN * 0.30)
+        minus_mean = MathTex(r"-\ \mathrm{mean\ light}", tex_template=EN_TEX_TEMPLATE, color=ACCENT_CORAL).scale(0.65).move_to(RIGHT * 0.6 + DOWN * 0.30)
         
         bg_dark = RoundedRectangle(width=0.35, height=2.2, corner_radius=0.08, color=GRID_LINE, stroke_width=0.8, fill_color=BG_NAVY_SOFT, fill_opacity=0.5).move_to(RIGHT * 2.2 + DOWN * 0.30)
         bg_bright = RoundedRectangle(width=0.35, height=2.2, corner_radius=0.08, color=GRID_LINE, stroke_width=0.8, fill_color=BG_NAVY_SOFT, fill_opacity=0.5).move_to(RIGHT * 3.2 + DOWN * 0.30)
@@ -346,8 +347,8 @@ class S05_Gabor(ThreeDScene):
         bar_dark = Rectangle(width=0.35, height=0.7, color=ACCENT_CORAL, stroke_width=0, fill_color=ACCENT_CORAL, fill_opacity=0.8).align_to(bg_dark, DOWN)
         bar_bright = Rectangle(width=0.35, height=2.0, color=ACCENT_CORAL, stroke_width=0, fill_color=ACCENT_CORAL, fill_opacity=0.8).align_to(bg_bright, DOWN)
         
-        dc_title = label("DC-free", UP * 2.10, color=ACCENT_MINT, scale=0.55, bold=True)
-        same_resp_lbl = label("same edge response", RIGHT * 2.7 + DOWN * 1.65, color=ACCENT_MINT, scale=0.28, bold=True)
+        dc_title = label("DC-free", UP * 2.10, color=ACCENT_MINT, scale=0.75, bold=True)
+        same_resp_lbl = label("same edge response", RIGHT * 2.7 + DOWN * 1.65, color=ACCENT_MINT, scale=0.38, bold=True)
         
         play_t(
             1.0,
@@ -394,8 +395,8 @@ class S05_Gabor(ThreeDScene):
                 grid_frames.add(frame)
                 grid_images.add(g_img)
                 
-        cnn_lbl = label("CNN first-layer filters", LEFT * 2.5 + DOWN * 1.75, color=ACCENT_CYAN, scale=0.38, bold=True)
-        approx = label(r"$\approx$", ORIGIN + DOWN * 0.30, color=TEXT_PRIMARY, scale=0.62)
+        cnn_lbl = label("CNN first-layer filters", LEFT * 2.5 + DOWN * 1.75, color=ACCENT_CYAN, scale=0.52, bold=True)
+        approx = label(r"$\approx$", ORIGIN + DOWN * 0.30, color=MATH_YELLOW, scale=0.85)
         
         cortex_x = 2.5
         cortex_cols = VGroup(
@@ -415,7 +416,7 @@ class S05_Gabor(ThreeDScene):
         for y in np.linspace(-0.6, 0.6, 4):
             cortex_lines.add(Line(DOWN * 0.18, UP * 0.18, color=ACCENT_MINT, stroke_width=1.5).move_to(RIGHT * (cortex_x + 0.7) + DOWN * (0.30 + y)))
             
-        bio_lbl5 = label("visual cortex", RIGHT * cortex_x + DOWN * 1.75, color=ACCENT_LAVENDER, scale=0.38, bold=True)
+        bio_lbl5 = label("visual cortex", RIGHT * cortex_x + DOWN * 1.75, color=ACCENT_LAVENDER, scale=0.52, bold=True)
         
         # Clear DC-free, then reveal the CNN first-layer Gabor filters.
         play_t(

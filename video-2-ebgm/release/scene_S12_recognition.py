@@ -21,6 +21,7 @@ class S12_Recognition(Scene):
     def construct(self):
         T = load_scene_timing(self.SCENE_KEY)
         self.add_sound(T["audio_path"])
+        add_subtitles(self, T)
         self.camera.background_color = BG_NAVY
 
         elapsed = 0.0
@@ -207,7 +208,7 @@ class S12_Recognition(Scene):
         formula = MathTex(
             r"S_G = \frac{1}{N}\sum_i S_a(J_i^{probe},J_i^{gallery})",
             tex_template=EN_TEX_TEMPLATE,
-            color=TEXT_PRIMARY,
+            color=MATH_YELLOW,
         ).scale(0.58).move_to(UP * 2.48)
         
         # Chips placed at DOWN * 2.55 below the gallery frame

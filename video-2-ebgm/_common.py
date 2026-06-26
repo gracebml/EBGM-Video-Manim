@@ -22,6 +22,7 @@ ACCENT_BLUE     = "#778DA9"   # Secondary blue-grey
 ACCENT_MINT     = "#95D5B2"   # Mint green for "Correct" / "Advantages"
 ACCENT_LAVENDER = "#B8B5FF"   # Signature lavender for EBGM, Bunch Graph
 ACCENT_CORAL    = "#E29578"   # Coral muted for "Wrong" / "Limitations"
+MATH_YELLOW     = "#FFF056"   # Bright yellow for math formulas & explanations
 
 # ============================================================
 # LATEX TEMPLATE — XeLaTeX + Latin Modern (hỗ trợ tiếng Việt)
@@ -86,7 +87,7 @@ def vn_tex_mono(text_str, color=None, scale=1.0):
 
 def vn_math(latex_str, color=None, scale=1.0):
     """MathTex with Vietnamese template."""
-    color = color or TEXT_PRIMARY
+    color = color or MATH_YELLOW
     obj = MathTex(latex_str, tex_template=VN_TEX_TEMPLATE, color=color)
     if scale != 1.0:
         obj.scale(scale)
@@ -223,11 +224,15 @@ def word_start(timing, substr):
             return w["start"]
     return None
 
+# Global multiplier to enlarge ALL on-screen illustration labels at once.
+# (Subtitles use Tex directly in add_subtitles, so they are NOT affected.)
+LABEL_SCALE_BOOST = 1.12
+
 def en_label(text_str, color=None, scale=0.5, bold=False):
     """Nhãn/chú thích ngắn tiếng Anh trên sơ đồ — LaTeX Latin Modern."""
     color = color or TEXT_PRIMARY
     body = (r"\textbf{%s}" % text_str) if bold else text_str
-    return Tex(body, tex_template=EN_TEX_TEMPLATE, color=color).scale(scale)
+    return Tex(body, tex_template=EN_TEX_TEMPLATE, color=color).scale(scale * LABEL_SCALE_BOOST)
 
 def label3d(text_str, color=None, scale=0.5):
     """Nhãn dùng trong ThreeDScene — luôn quay mặt về camera."""
@@ -255,3 +260,83 @@ def thin_curved_arrow(start, end, color=TEXT_PRIMARY, stroke_width=2.2, **kw):
     a = CurvedArrow(start, end, color=color, stroke_width=stroke_width, **kw)
     a.tip.scale(0.7)
     return a
+
+
+# ============================================================
+# SUBTITLES — realtime captions synced to transcript segments
+# Pure LaTeX (Latin Modern via EN_TEX_TEMPLATE). No Text()/font=.
+# ============================================================
+def _latex_escape(s):
+    repl = {
+        "\\": r"\textbackslash{}", "&": r"\&", "%": r"\%", "$": r"\$",
+        "#": r"\#", "_": r"\_", "{": r"\{", "}": r"\}",
+        "~": r"\textasciitilde{}", "^": r"\textasciicircum{}",
+    }
+    return "".join(repl.get(c, c) for c in s)
+
+
+def add_subtitles(scene, timing, scale=0.42, width_cm=11,
+                  color=TEXT_PRIMARY, lead=0.05, hold=0.30):
+    """Realtime subtitle track synced to `timing` (transcript segments).
+
+    Pure LaTeX captions (Latin Modern). Auto-picks how to pin to the screen:
+      - ThreeDScene        -> add_fixed_in_frame_mobjects
+      - MovingCameraScene  -> follows the camera frame (zoom/pan safe)
+      - plain Scene        -> static bottom strip
+    Call ONCE right after `self.add_sound(...)`. Each segment fades in/out via
+    opacity, driven by an updater clock that matches the audio timing.
+    """
+    segs = (timing or {}).get("segments", [])
+    if not segs:
+        return None
+
+    is_3d = isinstance(scene, ThreeDScene)
+    is_cam = (not is_3d) and isinstance(scene, MovingCameraScene)
+    y0 = -3.62
+
+    items = []
+    for seg in segs:
+        body = _latex_escape(seg["text"])
+        tex = Tex(
+            r"\parbox{%dcm}{\centering %s}" % (width_cm, body),
+            tex_template=EN_TEX_TEMPLATE, color=color,
+        ).scale(scale)
+        bg = RoundedRectangle(
+            width=max(0.6, tex.width + 0.5), height=tex.height + 0.30,
+            corner_radius=0.10, stroke_width=0,
+            fill_color=BG_NAVY, fill_opacity=0.0,
+        ).move_to(tex.get_center())
+        grp = VGroup(bg, tex).move_to([0, y0, 0])
+        grp.base_height = grp.height
+        tex.set_opacity(0)
+        items.append((seg["start"], seg["end"], grp, bg, tex))
+
+    track = VGroup(*[it[2] for it in items])
+    track.set_z_index(200)
+    if is_3d:
+        scene.add_fixed_in_frame_mobjects(track)
+    else:
+        scene.add(track)
+
+    base_h = config.frame_height
+    state = {"t": 0.0}
+
+    def upd(mob, dt):
+        state["t"] += dt
+        t = state["t"]
+        cx, sub_y, k = 0.0, y0, 1.0
+        if is_cam:
+            fr = scene.camera.frame
+            k = fr.height / base_h
+            cx, cy, _ = fr.get_center()
+            sub_y = cy - fr.height * 0.44
+        for s, e, grp, bg, tex in items:
+            on = (s - lead) <= t <= (e + hold)
+            tex.set_opacity(1.0 if on else 0.0)
+            bg.set_fill(BG_NAVY, opacity=0.55 if on else 0.0)
+            if is_cam:
+                grp.scale_to_fit_height(grp.base_height * k)
+                grp.move_to([cx, sub_y, 0])
+
+    track.add_updater(upd)
+    return track

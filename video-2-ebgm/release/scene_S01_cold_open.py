@@ -14,6 +14,7 @@ class S01_ColdOpen(MovingCameraScene):
     def construct(self):
         T = load_scene_timing(self.SCENE_KEY)
         self.add_sound(T["audio_path"])
+        add_subtitles(self, T)
         self.camera.background_color = BG_NAVY
 
         elapsed = 0.0
@@ -46,39 +47,96 @@ class S01_ColdOpen(MovingCameraScene):
             mouth = Arc(radius=0.2, start_angle=210 * DEGREES, angle=120 * DEGREES, color=color, stroke_width=2).shift(DOWN * 0.38)
             return VGroup(face, eyes, nose, mouth)
 
-        horizon = Line(LEFT * 7, RIGHT * 7, color=ACCENT_BLUE, stroke_width=1.2).shift(DOWN * 1.55).set_opacity(0.25)
-        buildings = VGroup()
-        for i, x in enumerate([-6.0, -4.25, -2.75, 3.95, 5.85]):
-            h = 1.15 + 0.25 * ((i * 2) % 4)
-            building = Rectangle(
-                width=0.95,
-                height=h,
-                color=ACCENT_BLUE,
-                stroke_width=0.8,
-                fill_color=BG_NAVY_SOFT,
-                fill_opacity=0.16,
-            ).move_to([x, -1.55 + h / 2, 0])
-            building.set_opacity(0.10)
-            buildings.add(building)
-        window_glints = VGroup()
-        for x, y in [(-5.9, -0.3), (-4.25, 0.25), (4.05, -0.15), (5.85, 0.38)]:
-            window_glints.add(Square(side_length=0.11, color=ACCENT_BLUE, stroke_width=0.8).move_to([x, y, 0]).set_opacity(0.10))
+        # ---- 45°-from-above perspective floor (synthwave) the two people stand on ----
+        HY, BY, HW = 1.4, -4.4, 15.0   # horizon y, near-floor y, half-width at near edge
 
-        person_a = tiny_person(ACCENT_CYAN).scale(1.15).move_to(LEFT * 3.25 + DOWN * 0.16)
-        person_b = tiny_person(ACCENT_LAVENDER).scale(1.15).move_to(RIGHT * 3.25 + DOWN * 0.16)
-        face_b = mini_face(ACCENT_LAVENDER).move_to(person_b[0].get_center())
-        face_b.scale(0.48)
-        person_b[0].become(face_b[0])
+        def hw_at(y):
+            return HW * (HY - y) / (HY - BY)
+
+        floor_h = VGroup()
+        rr, kk = 1.26, 0
+        while kk < 48:
+            y = HY - (HY - BY) / (rr ** kk)
+            if y > HY - 0.05:
+                break
+            t = (HY - y) / (HY - BY)
+            ln = Line([-hw_at(y), y, 0], [hw_at(y), y, 0], stroke_width=1.6)
+            ln.set_stroke(interpolate_color(ManimColor(ACCENT_LAVENDER), ManimColor(ACCENT_CYAN), t),
+                          opacity=0.14 + 0.36 * t)
+            floor_h.add(ln)
+            kk += 1
+        floor_v = VGroup()
+        for fx in np.linspace(-1.0, 1.0, 19):
+            ln = Line([fx * HW, BY, 0], [0, HY, 0], stroke_width=1.6)
+            d = abs(fx)
+            ln.set_stroke(interpolate_color(ManimColor(ACCENT_LAVENDER), ManimColor(ACCENT_CYAN), d),
+                          opacity=0.40 - 0.20 * d)
+            floor_v.add(ln)
+        horizon_glow = Line([-HW, HY, 0], [HW, HY, 0], color=MATH_YELLOW, stroke_width=4).set_opacity(0.34)
+        floor = VGroup(floor_v, floor_h, horizon_glow)
+
+        # faint night skyline, far away at the horizon
+        buildings = VGroup()
+        for i, x in enumerate([-5.0, -3.5, -2.1, 2.3, 3.8, 5.2]):
+            h = 0.55 + 0.22 * ((i * 3) % 4)
+            b = Rectangle(width=0.66, height=h, color=ACCENT_BLUE, stroke_width=0.7,
+                          fill_color=BG_NAVY_SOFT, fill_opacity=0.14).move_to([x, HY + h / 2, 0])
+            b.set_opacity(0.12)
+            buildings.add(b)
+        window_glints = VGroup()
+        for x, y in [(-3.5, HY + 0.45), (2.3, HY + 0.4), (5.2, HY + 0.55)]:
+            window_glints.add(Square(side_length=0.09, color=ACCENT_BLUE, stroke_width=0.7).move_to([x, y, 0]).set_opacity(0.12))
+
+        def make_person(color, as_face=False):
+            p = tiny_person(color)
+            if as_face:
+                p[0].become(mini_face(color).scale(0.30)[0])
+            return p
+
+        def stand(p, fx, foot_y, scale):
+            """Plant a figure so its feet rest on the floor at lateral fraction fx, depth foot_y."""
+            p.scale(scale)
+            cx = fx * hw_at(foot_y)
+            p.shift([cx - p.get_center()[0], foot_y - p.get_bottom()[1], 0])
+            return p
+
+        def make_shadow(p):
+            prox = (HY - p.get_bottom()[1]) / (HY - BY)
+            sh = Ellipse(width=p.width * 1.25, height=max(0.07, 0.20 * prox), stroke_width=0)
+            sh.set_fill(BLACK, opacity=0.30)
+            sh.move_to([p.get_center()[0], p.get_bottom()[1] + 0.03, 0])
+            return sh
+
+        # they walk toward the camera: far state -> near (met) state
+        A_FAR = dict(fx=-0.60, foot_y=0.15, scale=1.00)
+        B_FAR = dict(fx=0.60, foot_y=0.15, scale=1.00)
+        A_NEAR = dict(fx=-0.42, foot_y=-1.15, scale=1.28)
+        B_NEAR = dict(fx=0.42, foot_y=-1.15, scale=1.28)
+
+        person_a = stand(make_person(ACCENT_CYAN), **A_FAR)
+        person_b = stand(make_person(ACCENT_LAVENDER, as_face=True), **B_FAR)
+        person_b[0].move_to([person_b[1].get_center()[0], person_a[0].get_center()[1], 0])
+        shadow_a = make_shadow(person_a)
+        shadow_b = make_shadow(person_b)
+
+        a_near = stand(make_person(ACCENT_CYAN), **A_NEAR)
+        b_near = stand(make_person(ACCENT_LAVENDER, as_face=True), **B_NEAR)
+        b_near[0].move_to([b_near[1].get_center()[0], a_near[0].get_center()[1], 0])
+        shadow_a_near = make_shadow(a_near)
+        shadow_b_near = make_shadow(b_near)
 
         recog_t = word_start(T, "recogn") or 3.5
-        self.add(horizon, buildings, window_glints, person_a, person_b)
+        self.add(floor, buildings, window_glints, shadow_a, shadow_b, person_a, person_b)
+        self.bring_to_back(floor)
         beat_to(
             recog_t,
-            person_a.animate.move_to(LEFT * 2.05 + DOWN * 0.16),
-            person_b.animate.move_to(RIGHT * 2.05 + DOWN * 0.16),
-            buildings.animate.shift(LEFT * 0.08).set_opacity(0.10),
+            Transform(person_a, a_near),
+            Transform(person_b, b_near),
+            Transform(shadow_a, shadow_a_near),
+            Transform(shadow_b, shadow_b_near),
+            buildings.animate.set_opacity(0.10),
             window_glints.animate.set_opacity(0.10),
-            rate_func=linear,
+            rate_func=smooth,
         )
 
         gaze_path = Line(
@@ -95,8 +153,9 @@ class S01_ColdOpen(MovingCameraScene):
         elapsed += 0.42
 
         pulse = Circle(radius=0.36, color=ACCENT_MINT, stroke_width=3.2).move_to(person_b[0].get_center())
-        recognized = en_label("Recognized!", color=ACCENT_MINT, scale=0.6, bold=True)
+        recognized = en_label("Recognized!", color=MATH_YELLOW, scale=0.74, bold=True)
         recognized.move_to(UP * 1.25)
+        recognized_glow = recognized.copy().set_stroke(MATH_YELLOW, width=6, opacity=0.30).set_fill(opacity=0)
         self.play(
             GrowFromCenter(pulse),
             pulse.animate.scale(1.85).set_opacity(0),
@@ -107,6 +166,7 @@ class S01_ColdOpen(MovingCameraScene):
         elapsed += 0.36
         self.play(
             FadeIn(recognized, scale=0.8),
+            FadeIn(recognized_glow, scale=0.8),
             person_b[0].animate.scale(1 / 1.18),
             self.camera.frame.animate.scale(0.92).move_to(person_b.get_center()),
             run_time=max(0.2, seg_end(T, 0) - elapsed),
@@ -127,17 +187,22 @@ class S01_ColdOpen(MovingCameraScene):
             FadeOut(spark),
             FadeOut(pulse),
             FadeOut(recognized),
+            FadeOut(recognized_glow),
             person_a.animate.set_opacity(0.62),
             person_b.animate.set_opacity(0.70),
+            shadow_a.animate.set_opacity(0.14),
+            shadow_b.animate.set_opacity(0.16),
             rate_func=smooth,
         )
         beat_to(
             seg_end(T, 1),
             FadeOut(person_a),
             FadeOut(person_b),
+            FadeOut(shadow_a),
+            FadeOut(shadow_b),
             FadeOut(buildings),
             FadeOut(window_glints),
-            FadeOut(horizon),
+            FadeOut(floor),
             self.camera.frame.animate.move_to(ORIGIN).set(width=config.frame_width),
             FadeIn(face_image),
             Create(image_frame),
@@ -169,7 +234,7 @@ class S01_ColdOpen(MovingCameraScene):
         trunk = Line(UP * 1.22, UP * 0.6, color=ACCENT_BLUE, stroke_width=2)
         left_branch = Line(UP * 0.6, LEFT * 3.25 + UP * 0.6, color=ACCENT_CYAN, stroke_width=2)
         right_branch = Line(UP * 0.6, RIGHT * 3.25 + UP * 0.6, color=ACCENT_LAVENDER, stroke_width=2)
-        two_branches = en_label("Two branches", color=TEXT_PRIMARY, scale=0.55, bold=True).move_to(UP * 2.85)
+        two_branches = en_label("Two branches", color=MATH_YELLOW, scale=0.60, bold=True).move_to(UP * 2.85)
 
         beat_to(
             seg_end(T, 2),

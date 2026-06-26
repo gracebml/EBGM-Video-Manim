@@ -21,6 +21,7 @@ class S15_BigPicture(Scene):
     def construct(self):
         T = load_scene_timing(self.SCENE_KEY)
         self.add_sound(T["audio_path"])
+        add_subtitles(self, T)
         self.camera.background_color = BG_NAVY
 
         elapsed = 0.0
@@ -92,35 +93,35 @@ class S15_BigPicture(Scene):
                 Line(RIGHT * 0.18, RIGHT * 0.26, color=TEXT_PRIMARY, stroke_width=1.8)
             ).move_to(pos)
 
-        title = label("The Big Picture", UP * 3.05, color=TEXT_PRIMARY, scale=0.56, bold=True)
-        broad = label("one idea, many in-class recognition problems", UP * 2.45, color=TEXT_MUTED, scale=0.32)
+        title = label("The Big Picture", UP * 3.05, color=TEXT_PRIMARY, scale=0.72, bold=True)
+        broad = label("one idea, many in-class recognition problems", UP * 2.45, color=TEXT_MUTED, scale=0.45)
         
         # B0-B1: Broad examples with real images
         cards = Group()
         
         c0_face = load_face("s8_face", height=0.9)
         c0_card = make_face_card(c0_face, color=ACCENT_CYAN).move_to(LEFT * 4.5 + UP * 0.22)
-        c0_txt = label("faces", LEFT * 4.5 + DOWN * 0.78, color=ACCENT_CYAN, scale=0.29, bold=True)
+        c0_txt = label("faces", LEFT * 4.5 + DOWN * 0.82, color=ACCENT_CYAN, scale=0.42, bold=True)
         c0_box = RoundedRectangle(width=2.35, height=2.1, corner_radius=0.14, color=ACCENT_CYAN, stroke_width=1.5, fill_color=BG_NAVY_SOFT, fill_opacity=0.68).move_to(LEFT * 4.5 + DOWN * 0.15)
         c0_group = Group(c0_box, c0_card, c0_txt)
         cards.add(c0_group)
 
         c1_face = load_face("s15_animal", height=0.9)
         c1_card = make_face_card(c1_face, color=ACCENT_LAVENDER).move_to(LEFT * 1.5 + UP * 0.22)
-        c1_txt = label("animals", LEFT * 1.5 + DOWN * 0.78, color=ACCENT_LAVENDER, scale=0.29, bold=True)
+        c1_txt = label("animals", LEFT * 1.5 + DOWN * 0.82, color=ACCENT_LAVENDER, scale=0.42, bold=True)
         c1_box = RoundedRectangle(width=2.35, height=2.1, corner_radius=0.14, color=ACCENT_LAVENDER, stroke_width=1.5, fill_color=BG_NAVY_SOFT, fill_opacity=0.68).move_to(LEFT * 1.5 + DOWN * 0.15)
         c1_group = Group(c1_box, c1_card, c1_txt)
         cards.add(c1_group)
 
         c2_face = load_face("s15_vehicle", height=0.9)
         c2_card = make_face_card(c2_face, color=ACCENT_MINT).move_to(RIGHT * 1.5 + UP * 0.22)
-        c2_txt = label("vehicles", RIGHT * 1.5 + DOWN * 0.78, color=ACCENT_MINT, scale=0.29, bold=True)
+        c2_txt = label("vehicles", RIGHT * 1.5 + DOWN * 0.82, color=ACCENT_MINT, scale=0.42, bold=True)
         c2_box = RoundedRectangle(width=2.35, height=2.1, corner_radius=0.14, color=ACCENT_MINT, stroke_width=1.5, fill_color=BG_NAVY_SOFT, fill_opacity=0.68).move_to(RIGHT * 1.5 + DOWN * 0.15)
         c2_group = Group(c2_box, c2_card, c2_txt)
         cards.add(c2_group)
 
         c3_icon = graph_icon(RIGHT * 4.5 + UP * 0.22, color=ACCENT_BLUE, scale=0.92)
-        c3_txt = label("variants", RIGHT * 4.5 + DOWN * 0.78, color=ACCENT_BLUE, scale=0.29, bold=True)
+        c3_txt = label("variants", RIGHT * 4.5 + DOWN * 0.82, color=ACCENT_BLUE, scale=0.42, bold=True)
         c3_box = RoundedRectangle(width=2.35, height=2.1, corner_radius=0.14, color=ACCENT_BLUE, stroke_width=1.5, fill_color=BG_NAVY_SOFT, fill_opacity=0.68).move_to(RIGHT * 4.5 + DOWN * 0.15)
         c3_group = Group(c3_box, c3_icon, c3_txt)
         cards.add(c3_group)
@@ -130,8 +131,8 @@ class S15_BigPicture(Scene):
         # B2-B5: PCA vs EBGM Comparison
         pca_panel = RoundedRectangle(width=5.35, height=3.7, corner_radius=0.14, color=ACCENT_BLUE, stroke_width=1.6, fill_color=BG_NAVY_SOFT, fill_opacity=0.78).move_to(LEFT * 3.15 + DOWN * 0.15)
         ebgm_panel = RoundedRectangle(width=5.35, height=3.7, corner_radius=0.14, color=ACCENT_LAVENDER, stroke_width=1.6, fill_color=BG_NAVY_SOFT, fill_opacity=0.78).move_to(RIGHT * 3.15 + DOWN * 0.15)
-        pca_lbl = label("PCA", pca_panel.get_top() + DOWN * 0.38, color=ACCENT_BLUE, scale=0.42, bold=True)
-        ebgm_lbl = label("EBGM", ebgm_panel.get_top() + DOWN * 0.38, color=ACCENT_LAVENDER, scale=0.42, bold=True)
+        pca_lbl = label("PCA", pca_panel.get_top() + DOWN * 0.42, color=ACCENT_BLUE, scale=0.55, bold=True)
+        ebgm_lbl = label("EBGM", ebgm_panel.get_top() + DOWN * 0.42, color=ACCENT_LAVENDER, scale=0.55, bold=True)
         
         pca_face_card = make_face_card(load_face("s8_face", height=2.2)).move_to(pca_panel.get_center() + DOWN * 0.05)
         pca_face = pca_face_card[1]
@@ -217,14 +218,14 @@ class S15_BigPicture(Scene):
             fill_opacity=0.35
         ).move_to(pca_face.get_center())
         
-        pca_bad = label("global vector disturbed", pca_panel.get_bottom() + UP * 0.35, color=ACCENT_CORAL, scale=0.26, bold=True)
+        pca_bad = label("global vector disturbed", pca_panel.get_bottom() + UP * 0.45, color=ACCENT_CORAL, scale=0.38, bold=True)
         
         # EBGM safe/coral nodes
         eye_ring = VGroup(
             Circle(radius=0.18, color=ACCENT_CORAL, stroke_width=2.0).move_to(pts_ebgm["eye_l"]),
             Circle(radius=0.18, color=ACCENT_CORAL, stroke_width=2.0).move_to(pts_ebgm["eye_r"])
         )
-        safe = label("only eye jets disturbed", ebgm_panel.get_bottom() + UP * 0.35, color=ACCENT_MINT, scale=0.26, bold=True)
+        safe = label("only eye jets disturbed", ebgm_panel.get_bottom() + UP * 0.45, color=ACCENT_MINT, scale=0.38, bold=True)
 
         idx_eye_l = list(lm_coords.keys()).index("eye_l")
         idx_eye_r = list(lm_coords.keys()).index("eye_r")
@@ -249,45 +250,70 @@ class S15_BigPicture(Scene):
         )
 
         # B6-B9: Summary card (Limits & Strengths)
-        limits_panel = RoundedRectangle(width=10.0, height=4.2, corner_radius=0.16, color=GRID_LINE, stroke_width=1.0, fill_color=BG_NAVY_SOFT, fill_opacity=0.5).move_to(DOWN * 0.25)
+        limits_panel = RoundedRectangle(width=10.0, height=4.5, corner_radius=0.16, color=GRID_LINE, stroke_width=1.0, fill_color=BG_NAVY_SOFT, fill_opacity=0.5).move_to(DOWN * 0.35)
         
-        cons_title = label("Limits \\& Strengths", UP * 2.50, color=TEXT_PRIMARY, scale=0.52, bold=True)
+        cons_title = label("Limits \\& Strengths", UP * 2.60, color=TEXT_PRIMARY, scale=0.72, bold=True)
         
-        limits_lbl = label("Limits", LEFT * 2.5 + UP * 1.1, color=ACCENT_CORAL, scale=0.38, bold=True)
-        lim_x1 = VGroup(Line(LEFT * 0.10 + DOWN * 0.10, RIGHT * 0.10 + UP * 0.10, color=ACCENT_CORAL, stroke_width=3.0), Line(LEFT * 0.10 + UP * 0.10, RIGHT * 0.10 + DOWN * 0.10, color=ACCENT_CORAL, stroke_width=3.0)).move_to(LEFT * 4.3 + UP * 0.4)
-        lim_lbl1 = label("Weak beyond 22 degrees rotation", LEFT * 4.0 + UP * 0.4, color=TEXT_PRIMARY, scale=0.28).move_to(LEFT * 4.0 + UP * 0.4, aligned_edge=LEFT)
-        lim_x2 = VGroup(Line(LEFT * 0.10 + DOWN * 0.10, RIGHT * 0.10 + UP * 0.10, color=ACCENT_CORAL, stroke_width=3.0), Line(LEFT * 0.10 + UP * 0.10, RIGHT * 0.10 + DOWN * 0.10, color=ACCENT_CORAL, stroke_width=3.0)).move_to(LEFT * 4.3 + DOWN * 0.2)
-        lim_lbl2 = label("Fragile when landmarks are occluded", LEFT * 4.0 + DOWN * 0.2, color=TEXT_PRIMARY, scale=0.28).move_to(LEFT * 4.0 + DOWN * 0.2, aligned_edge=LEFT)
+        limits_lbl = label("Limits", LEFT * 2.5 + UP * 1.15, color=ACCENT_CORAL, scale=0.58, bold=True)
+        lim_x1 = VGroup(Line(LEFT * 0.10 + DOWN * 0.10, RIGHT * 0.10 + UP * 0.10, color=ACCENT_CORAL, stroke_width=3.0), Line(LEFT * 0.10 + UP * 0.10, RIGHT * 0.10 + DOWN * 0.10, color=ACCENT_CORAL, stroke_width=3.0)).move_to(LEFT * 4.3 + UP * 0.45)
+        lim_lbl1 = label("Weak beyond 22 degrees rotation", LEFT * 3.9 + UP * 0.45, color=TEXT_PRIMARY, scale=0.38).move_to(LEFT * 3.9 + UP * 0.45, aligned_edge=LEFT)
+        lim_x2 = VGroup(Line(LEFT * 0.10 + DOWN * 0.10, RIGHT * 0.10 + UP * 0.10, color=ACCENT_CORAL, stroke_width=3.0), Line(LEFT * 0.10 + UP * 0.10, RIGHT * 0.10 + DOWN * 0.10, color=ACCENT_CORAL, stroke_width=3.0)).move_to(LEFT * 4.3 + DOWN * 0.25)
+        lim_lbl2 = label("Fragile when landmarks are occluded", LEFT * 3.9 + DOWN * 0.25, color=TEXT_PRIMARY, scale=0.38).move_to(LEFT * 3.9 + DOWN * 0.25, aligned_edge=LEFT)
         
-        strengths_lbl = label("Strengths", RIGHT * 2.5 + UP * 1.1, color=ACCENT_MINT, scale=0.38, bold=True)
-        str_check1 = label(r"\checkmark", RIGHT * 0.8 + UP * 0.4, color=ACCENT_MINT, scale=0.45, bold=True)
-        str_lbl1 = label("Robust to lighting \\& expression", RIGHT * 1.1 + UP * 0.4, color=TEXT_PRIMARY, scale=0.28).move_to(RIGHT * 1.1 + UP * 0.4, aligned_edge=LEFT)
-        str_check2 = label(r"\checkmark", RIGHT * 0.8 + DOWN * 0.2, color=ACCENT_MINT, scale=0.45, bold=True)
-        str_lbl2 = label("Compartmentalized localized risk", RIGHT * 1.1 + DOWN * 0.2, color=TEXT_PRIMARY, scale=0.28).move_to(RIGHT * 1.1 + DOWN * 0.2, aligned_edge=LEFT)
+        strengths_lbl = label("Strengths", RIGHT * 2.5 + UP * 1.15, color=ACCENT_MINT, scale=0.58, bold=True)
+        str_check1 = MathTex(r"\checkmark", tex_template=EN_TEX_TEMPLATE, color=ACCENT_MINT).scale(0.9).move_to(RIGHT * 0.8 + UP * 0.45)
+        str_lbl1 = label("Robust to lighting \\& expression", RIGHT * 1.2 + UP * 0.45, color=TEXT_PRIMARY, scale=0.38).move_to(RIGHT * 1.2 + UP * 0.45, aligned_edge=LEFT)
+        str_check2 = MathTex(r"\checkmark", tex_template=EN_TEX_TEMPLATE, color=ACCENT_MINT).scale(0.9).move_to(RIGHT * 0.8 + DOWN * 0.25)
+        str_lbl2 = label("Compartmentalized localized risk", RIGHT * 1.2 + DOWN * 0.25, color=TEXT_PRIMARY, scale=0.38).move_to(RIGHT * 1.2 + DOWN * 0.25, aligned_edge=LEFT)
         
-        no_training = RoundedRectangle(width=8.0, height=0.8, corner_radius=0.10, color=ACCENT_MINT, stroke_width=1.6, fill_color=ACCENT_MINT, fill_opacity=0.08).move_to(DOWN * 1.3)
-        no_training_lbl = label("No massive training dataset required", no_training.get_center(), color=ACCENT_MINT, scale=0.34, bold=True)
+        no_training = RoundedRectangle(width=8.0, height=0.8, corner_radius=0.10, color=ACCENT_MINT, stroke_width=1.6, fill_color=ACCENT_MINT, fill_opacity=0.08).move_to(DOWN * 1.40)
+        no_training_lbl = label("No massive training dataset required", no_training.get_center(), color=ACCENT_MINT, scale=0.45, bold=True)
 
         old = Group(pca_panel, ebgm_panel, pca_lbl, ebgm_lbl, pca_face_card, pca_grid, ebgm_face_card, ebgm_graph, glasses_l, glasses_r, pca_damage, pca_bad, eye_ring, safe)
 
-        beat_to(
-            seg_end(T, 9),
-            FadeOut(old),
-            FadeIn(limits_panel),
-            FadeIn(cons_title),
-            FadeIn(limits_lbl),
-            Create(lim_x1),
-            FadeIn(lim_lbl1),
-            Create(lim_x2),
-            FadeIn(lim_lbl2),
-            FadeIn(strengths_lbl),
-            Write(str_check1),
-            FadeIn(str_lbl1),
-            Write(str_check2),
-            FadeIn(str_lbl2),
-            FadeIn(no_training),
-            FadeIn(no_training_lbl)
-        )
+        # 1. Clear old elements quickly and decisively
+        self.play(FadeOut(old, shift=DOWN*0.2), run_time=0.4); elapsed += 0.4
+
+        # 2. Panel + Title entry
+        self.play(
+            GrowFromCenter(limits_panel),
+            FadeIn(cons_title, scale=0.8),
+            run_time=0.6
+        ); elapsed += 0.6
+        self.play(
+            Indicate(cons_title, color=ACCENT_LAVENDER, scale_factor=1.05),
+            run_time=0.5
+        ); elapsed += 0.5
+
+        # 3. Two columns reveal with rhythm
+        left_anims = [
+            FadeIn(limits_lbl, scale=0.9),
+            AnimationGroup(Create(lim_x1), FadeIn(lim_lbl1)),
+            AnimationGroup(Create(lim_x2), FadeIn(lim_lbl2)),
+        ]
+        right_anims = [
+            FadeIn(strengths_lbl, scale=0.9),
+            AnimationGroup(Write(str_check1), FadeIn(str_lbl1)),
+            AnimationGroup(Write(str_check2), FadeIn(str_lbl2)),
+        ]
+        self.play(
+            LaggedStart(*left_anims, lag_ratio=0.15, run_time=1.8),
+            LaggedStart(*right_anims, lag_ratio=0.15, run_time=1.8),
+        ); elapsed += 1.8
+
+        # 4. no_training mint banner entry
+        self.play(
+            GrowFromEdge(no_training, DOWN),
+            FadeIn(no_training_lbl, scale=0.9),
+            run_time=0.6
+        ); elapsed += 0.6
+        self.play(
+            Indicate(no_training_lbl, color=ACCENT_MINT, scale_factor=1.05),
+            run_time=0.5
+        ); elapsed += 0.5
+
+        # 5. Absorb remaining segment budget
+        beat_to(seg_end(T, 9))
 
         tail = max(0.0, T["duration"] - elapsed - 0.18)
         if tail > 0.05:

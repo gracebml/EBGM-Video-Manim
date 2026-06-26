@@ -22,6 +22,7 @@ class S09_BunchGraph(ThreeDScene):
     def construct(self):
         T = load_scene_timing(self.SCENE_KEY)
         self.add_sound(T["audio_path"])
+        add_subtitles(self, T)
         self.camera.background_color = BG_NAVY
         self.set_camera_orientation(phi=0 * DEGREES, theta=-90 * DEGREES, zoom=1.0)
 
@@ -106,7 +107,7 @@ class S09_BunchGraph(ThreeDScene):
             ("eye_r", "cheek_r"), ("mouth_r", "cheek_r"),
         ]
 
-        title = label(r"Face Bunch Graph", UP * 3.05, color=TEXT_PRIMARY, scale=0.56, bold=True)
+        title = label(r"Face Bunch Graph", UP * 3.05, color=TEXT_PRIMARY, scale=0.72, bold=True)
 
         # B0: one graph cannot fit another face.
         face_img_a = load_face("s8_face", fallback_style="neutral", color=ACCENT_CYAN, height=2.4)
@@ -138,12 +139,12 @@ class S09_BunchGraph(ThreeDScene):
         bad_nodes = VGroup(*[Dot(p, radius=0.065, color=ACCENT_CORAL) for p in pts_b_bad.values()])
         bad_g = VGroup(bad_edges, bad_nodes)
 
-        mismatch = label(r"one graph cannot fit every face", DOWN * 2.45, color=ACCENT_CORAL, scale=0.36, bold=True)
+        mismatch = label(r"one graph cannot fit every face", DOWN * 2.45, color=ACCENT_CORAL, scale=0.52, bold=True)
         beat_to(seg_end(T, 0), FadeIn(title, shift=DOWN * 0.05), FadeIn(face_card_a), FadeIn(g_a), FadeIn(face_card_b), FadeIn(bad_g), FadeIn(mismatch))
 
         # B1-B2: solution and name.
-        solution = label(r"The solution:", UP * 1.95, color=TEXT_MUTED, scale=0.34)
-        fbg_name = label(r"FACE BUNCH GRAPH", ORIGIN, color=ACCENT_LAVENDER, scale=0.60, bold=True)
+        solution = label(r"The solution:", UP * 1.95, color=TEXT_MUTED, scale=0.48)
+        fbg_name = label(r"FACE BUNCH GRAPH", ORIGIN, color=ACCENT_LAVENDER, scale=0.85, bold=True)
         box = SurroundingRectangle(fbg_name, color=ACCENT_LAVENDER, buff=0.22, stroke_width=2.0)
         beat_to(seg_end(T, 1), FadeOut(face_card_a), FadeOut(face_card_b), FadeOut(g_a), FadeOut(bad_g), FadeOut(mismatch), FadeIn(solution), FadeIn(fbg_name, shift=DOWN * 0.05))
         beat_to(seg_end(T, 2), Create(box), fbg_name.animate.set_color(ACCENT_MINT))
@@ -183,7 +184,7 @@ class S09_BunchGraph(ThreeDScene):
             stack_element = Group(card, g_edges, g_nodes)
             stack.add(stack_element)
 
-        stack_lbl = label(r"stack many sample graphs", DOWN * 2.4, color=ACCENT_CYAN, scale=0.36, bold=True)
+        stack_lbl = label(r"stack many sample graphs", DOWN * 2.4, color=ACCENT_CYAN, scale=0.52, bold=True)
         beat_to(seg_end(T, 3), FadeOut(solution), FadeOut(fbg_name), FadeOut(box), LaggedStart(*[FadeIn(g, shift=UP * 0.08) for g in stack], lag_ratio=0.08), FadeIn(stack_lbl))
 
         # B4: eye node becomes a whole bunch.
@@ -198,7 +199,7 @@ class S09_BunchGraph(ThreeDScene):
         eye_glasses_frame = make_eye_frame(eye_glasses).move_to(RIGHT * 2.2 + DOWN * 0.05)
 
         eyes = Group(eye_narrow_frame, eye_round_frame, eye_glasses_frame)
-        eye_bunch_lbl = label(r"eye node = a bunch", UP * 1.35, color=ACCENT_LAVENDER, scale=0.42, bold=True)
+        eye_bunch_lbl = label(r"eye node = a bunch", UP * 1.35, color=ACCENT_LAVENDER, scale=0.58, bold=True)
         
         beat_to(
             seg_end(T, 4),
@@ -211,9 +212,9 @@ class S09_BunchGraph(ThreeDScene):
 
         # B5: show examples.
         labs = VGroup(
-            label(r"narrow", LEFT * 2.2 + DOWN * 0.8, color=ACCENT_CYAN, scale=0.28),
-            label(r"round", DOWN * 0.8, color=ACCENT_TEAL, scale=0.28),
-            label(r"spectacled", RIGHT * 2.2 + DOWN * 0.8, color=ACCENT_LAVENDER, scale=0.28),
+            label(r"narrow", LEFT * 2.2 + DOWN * 0.8, color=ACCENT_CYAN, scale=0.38),
+            label(r"round", DOWN * 0.8, color=ACCENT_TEAL, scale=0.38),
+            label(r"spectacled", RIGHT * 2.2 + DOWN * 0.8, color=ACCENT_LAVENDER, scale=0.38),
         )
         beat_to(seg_end(T, 5), LaggedStart(*[FadeIn(l, shift=UP * 0.04) for l in labs], lag_ratio=0.10), eye_glasses_frame.animate.scale(1.08))
 
@@ -222,11 +223,11 @@ class S09_BunchGraph(ThreeDScene):
         stranger = make_face_card(stranger_img, color=TEXT_MUTED).move_to(LEFT * 5.0 + DOWN * 0.15).set_opacity(0.4)
         
         search_beam = thin_arrow(LEFT * 3.8 + DOWN * 0.15, LEFT * 2.8 + DOWN * 0.15, color=ACCENT_MINT, stroke_width=2.0, buff=0.05)
-        search_lbl = label(r"search the bunch", LEFT * 4.3 + UP * 1.25, color=ACCENT_MINT, scale=0.31, bold=True)
+        search_lbl = label(r"search the bunch", LEFT * 4.3 + UP * 1.25, color=ACCENT_MINT, scale=0.42, bold=True)
         beat_to(seg_end(T, 6), FadeIn(stranger), GrowArrow(search_beam), FadeIn(search_lbl))
 
         expert_box = SurroundingRectangle(eye_glasses_frame, color=ACCENT_MINT, buff=0.15, stroke_width=2.5)
-        expert_lbl = label(r"Local Expert", RIGHT * 2.2 + UP * 0.88, color=ACCENT_MINT, scale=0.36, bold=True)
+        expert_lbl = label(r"Local Expert", RIGHT * 2.2 + UP * 0.88, color=ACCENT_MINT, scale=0.45, bold=True)
         beat_to(
             seg_end(T, 7),
             Create(expert_box),
@@ -250,11 +251,11 @@ class S09_BunchGraph(ThreeDScene):
             )
             for x_pos, color in [(-2.2, ACCENT_CYAN), (0.0, ACCENT_MINT), (2.2, ACCENT_LAVENDER)]
         ])
-        fit_lbl = label(r"best fit for each landmark", DOWN * 2.45, color=TEXT_PRIMARY, scale=0.32, bold=True)
+        fit_lbl = label(r"best fit for each landmark", DOWN * 2.45, color=MATH_YELLOW, scale=0.45, bold=True)
         beat_to(seg_end(T, 8), LaggedStart(*[GrowArrow(a) for a in fit_arrows], lag_ratio=0.10), FadeIn(selected), FadeIn(fit_lbl))
 
         # B9: coverage through cross-combination.
-        coverage = label(r"almost limitless coverage", UP * 2.55, color=ACCENT_LAVENDER, scale=0.52, bold=True)
+        coverage = label(r"almost limitless coverage", UP * 2.55, color=ACCENT_LAVENDER, scale=0.66, bold=True)
         combo_lines = VGroup(
             Line(LEFT * 2.2 + DOWN * 0.5, DOWN * 1.8, color=ACCENT_LAVENDER, stroke_width=1.5).set_opacity(0.35),
             Line(LEFT * 2.2 + DOWN * 0.5, RIGHT * 2.2 + DOWN * 1.8, color=ACCENT_LAVENDER, stroke_width=1.5).set_opacity(0.35),

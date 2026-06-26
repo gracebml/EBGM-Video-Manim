@@ -16,6 +16,7 @@ class S04_Idea(MovingCameraScene):
     def construct(self):
         T = load_scene_timing(self.SCENE_KEY)
         self.add_sound(T["audio_path"])
+        add_subtitles(self, T)
         self.camera.background_color = BG_NAVY
 
         elapsed = 0.0
@@ -225,9 +226,9 @@ class S04_Idea(MovingCameraScene):
         )
 
         xs = [-4.6, 0.0, 4.6]
-        p1 = panel(width=3.55, height=4.5, color=ACCENT_CYAN).move_to([xs[0], -0.15, 0])
-        p2 = panel(width=3.55, height=4.5, color=ACCENT_TEAL).move_to([xs[1], -0.15, 0])
-        p3 = panel(width=3.55, height=4.5, color=ACCENT_LAVENDER).move_to([xs[2], -0.15, 0])
+        p1 = panel(width=3.55, height=4.0, color=ACCENT_CYAN).move_to([xs[0], 0.0, 0])
+        p2 = panel(width=3.55, height=4.0, color=ACCENT_TEAL).move_to([xs[1], 0.0, 0])
+        p3 = panel(width=3.55, height=4.0, color=ACCENT_LAVENDER).move_to([xs[2], 0.0, 0])
         pillars = VGroup(p1, p2, p3)
 
         heads = VGroup(
@@ -238,7 +239,7 @@ class S04_Idea(MovingCameraScene):
 
         # Pillar 1 elements
         graph = make_landmark_graph(face_img, color=ACCENT_CYAN).move_to([xs[0], 0.0, 0])
-        graph_note = label("landmarks + edges", [xs[0], -2.00, 0], color=TEXT_MUTED, scale=0.24)
+        graph_note = label("landmarks + edges", [xs[0], -1.62, 0], color=TEXT_MUTED, scale=0.24)
 
         beat_to(
             seg_end(T, 1),
@@ -272,7 +273,7 @@ class S04_Idea(MovingCameraScene):
         jet = make_jet_stack(color=ACCENT_TEAL).scale(1.22).move_to([xs[1], -0.65, 0])
         psi_symbol = MathTex(r"\psi", tex_template=EN_TEX_TEMPLATE, color=ACCENT_LAVENDER).scale(0.55).next_to(jet, RIGHT, buff=0.15)
         arrow_to_jet = thin_curved_arrow(np.array([xs[1] - 0.65, 0.15, 0]), np.array([xs[1] - 0.2, -0.3, 0]), color=ACCENT_TEAL, stroke_width=2.0, angle=-45*DEGREES)
-        jet_note = label("wavelet jet — texture DNA", [xs[1], -2.00, 0], color=TEXT_MUTED, scale=0.24)
+        jet_note = label("wavelet jet — texture DNA", [xs[1], -1.62, 0], color=TEXT_MUTED, scale=0.24)
 
         beat_to(
             seg_end(T, 2),
@@ -302,7 +303,7 @@ class S04_Idea(MovingCameraScene):
             return Group(g3, g2, g1)
 
         bunch = make_bunch_stack()
-        bunch_note = label("pose samples stacked", [xs[2], -2.00, 0], color=TEXT_MUTED, scale=0.24)
+        bunch_note = label("pose samples stacked", [xs[2], -1.62, 0], color=TEXT_MUTED, scale=0.24)
         pose_labs = VGroup(
             label("frontal", [xs[2] - 1.25, -0.65, 0], color=ACCENT_CYAN, scale=0.18, bold=True),
             label("half-profile", [xs[2] - 1.15, -0.15, 0], color=ACCENT_TEAL, scale=0.18, bold=True),
@@ -331,12 +332,12 @@ class S04_Idea(MovingCameraScene):
         )
 
         strengths = VGroup(
-            result_chip(r"Robust to light", ACCENT_CYAN).move_to([xs[0], -3.15, 0]),
-            result_chip(r"< 100 images", ACCENT_TEAL).move_to([xs[1], -3.15, 0]),
-            result_chip(r"High accuracy", ACCENT_MINT).move_to([xs[2], -3.15, 0]),
+            result_chip(r"Robust to light", ACCENT_CYAN).move_to([xs[0], -2.62, 0]),
+            result_chip(r"< 100 images", ACCENT_TEAL).move_to([xs[1], -2.62, 0]),
+            result_chip(r"High accuracy", ACCENT_MINT).move_to([xs[2], -2.62, 0]),
         )
         system_box = SurroundingRectangle(pillars, color=ACCENT_LAVENDER, buff=0.18, stroke_width=2.0)
-        balance = label(r"design + signal, before big training", UP * 2.86, color=TEXT_MUTED, scale=0.28)
+        balance = label(r"design + signal, before big training", UP * 3.32, color=TEXT_MUTED, scale=0.28)
 
         beat_to(
             seg_end(T, 4),

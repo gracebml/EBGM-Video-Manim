@@ -22,6 +22,7 @@ class S02_WhyHard(MovingCameraScene):
     def construct(self):
         T = load_scene_timing(self.SCENE_KEY)
         self.add_sound(T["audio_path"])
+        add_subtitles(self, T)
         self.camera.background_color = BG_NAVY
 
         elapsed = 0.0
@@ -375,9 +376,9 @@ class S02_WhyHard(MovingCameraScene):
             face_card("s2_personA", fallback_style="smile", color=ACCENT_CYAN, height=1.48, frame_color=ACCENT_CYAN).move_to(RIGHT * 2.05 + UP * 0.26),
             face_card("s2_personB", fallback_style="pose", color=ACCENT_LAVENDER, height=1.48, frame_color=ACCENT_LAVENDER).move_to(RIGHT * 4.52 + UP * 0.26),
         ]
-        tiny_lbl = en_label("tiniest detail", color=ACCENT_CORAL, scale=0.34, bold=True).move_to(RIGHT * 3.3 + DOWN * 1.88)
+        tiny_lbl = en_label("tiniest detail", color=ACCENT_CORAL, scale=0.34, bold=True).move_to(RIGHT * 3.0 + DOWN * 1.05)
         detail_circle = Circle(radius=0.18, color=ACCENT_CORAL, stroke_width=2.4).move_to(RIGHT * 4.72 + UP * 0.48)
-        detail_arrow = thin_curved_arrow(RIGHT * 3.0 + DOWN * 0.28, detail_circle.get_center(), color=ACCENT_CORAL, stroke_width=2.3, tip_length=0.14, angle=0.55)
+        detail_arrow = thin_curved_arrow(RIGHT * 3.0 + DOWN * 0.52, detail_circle.get_center(), color=ACCENT_CORAL, stroke_width=2.3, tip_length=0.14, angle=0.55)
         beat_to(
             T["segments"][8]["start"],
             FadeOut(Group(*tolerant_imgs), shift=DOWN * 0.05),

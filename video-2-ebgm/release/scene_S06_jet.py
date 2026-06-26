@@ -21,6 +21,7 @@ class S06_Jet(ThreeDScene):
     def construct(self):
         T = load_scene_timing(self.SCENE_KEY)
         self.add_sound(T["audio_path"])
+        add_subtitles(self, T)
         self.camera.background_color = BG_NAVY
         self.set_camera_orientation(phi=0 * DEGREES, theta=-90 * DEGREES, zoom=1.0)
 
@@ -237,7 +238,7 @@ class S06_Jet(ThreeDScene):
 
         # B3: complex numbers.
         cards = complex_cards().scale(1.12).move_to(RIGHT * 1.7 + DOWN * 0.02)
-        z_formula = MathTex(r"z_j=a_j e^{i\phi_j}", tex_template=EN_TEX_TEMPLATE, color=TEXT_PRIMARY).scale(0.74).move_to(RIGHT * 1.7 + UP * 1.45)
+        z_formula = MathTex(r"z_j=a_j e^{i\phi_j}", tex_template=EN_TEX_TEMPLATE, color=MATH_YELLOW).scale(0.74).move_to(RIGHT * 1.7 + UP * 1.45)
         beat_to(
             seg_end(T, 3),
             FadeOut(small_bank),
@@ -275,7 +276,7 @@ class S06_Jet(ThreeDScene):
         )
 
         # B6: complex elements split into two useful parts.
-        element = MathTex(r"z_j=a_j e^{i\phi_j}", tex_template=EN_TEX_TEMPLATE, color=TEXT_PRIMARY).scale(1.05).move_to(UP * 1.0)
+        element = MathTex(r"z_j=a_j e^{i\phi_j}", tex_template=EN_TEX_TEMPLATE, color=MATH_YELLOW).scale(1.05).move_to(UP * 1.0)
         amp_card = RoundedRectangle(width=3.2, height=2.4, corner_radius=0.14, color=ACCENT_MINT, stroke_width=1.8, fill_color=ACCENT_MINT, fill_opacity=0.06).move_to(LEFT * 2.4 - UP * 0.9)
         phase_card = RoundedRectangle(width=3.2, height=2.4, corner_radius=0.14, color=ACCENT_LAVENDER, stroke_width=1.8, fill_color=ACCENT_LAVENDER, fill_opacity=0.06).move_to(RIGHT * 2.4 - UP * 0.9)
         
@@ -328,7 +329,7 @@ class S06_Jet(ThreeDScene):
             Dot(ORIGIN, radius=0.045, color=ACCENT_LAVENDER),
         ).move_to(phase_card.get_center() - UP * 0.1)
         coord_note = label(r"which coordinate?", phase_card.get_bottom() + UP * 0.35, color=ACCENT_LAVENDER, scale=0.30, bold=True)
-        conclusion = label(r"Amplitude -> shape   |   Phase -> coordinate", DOWN * 2.65, color=TEXT_PRIMARY, scale=0.34, bold=True)
+        conclusion = label(r"Amplitude -> shape   |   Phase -> coordinate", DOWN * 2.65, color=MATH_YELLOW, scale=0.34, bold=True)
         
         beat_to(
             seg_end(T, 8),
